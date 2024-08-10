@@ -1,14 +1,7 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: aux
-// Assembly: autoMask, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 93C42831-928E-4BBC-8F9F-03F21363630D
-// Assembly location: D:\TFM\automask\autoMask.dll
-
-using System.Numerics;
+﻿using System.Numerics;
 using System.Windows.Controls;
 
-#nullable enable
-public static class aux
+public static class auxFun
 {
   public const float SCALE_FACTOR = 1000f;
   public const int FILE_PRECISSION = 1000;

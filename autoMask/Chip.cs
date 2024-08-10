@@ -1,13 +1,4 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: autoMask.Chip
-// Assembly: autoMask, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 93C42831-928E-4BBC-8F9F-03F21363630D
-// Assembly location: D:\TFM\automask\autoMask.dll
-
-using System;
-
-#nullable enable
-namespace autoMask
+﻿namespace autoMask
 {
   public class Chip
   {
@@ -96,7 +87,11 @@ namespace autoMask
 
     public string csvLine()
     {
-      return this.ELECTRODE_N.ToString() + ";" + this.ELECTRODE_DISTANCE.ToString() + ";" + this.ELECTRODE_DIAMETER.ToString() + ";" + this.PAD_L.ToString() + ";" + this.WIRE_MIN_WIDTH.ToString() + ";" + this.SQUARE_WIDTH.ToString() + ";" + this.SQUARE_L.ToString() + ";" + this.CHIP_MARGIN.ToString() + ";" + this.REF_SEPARATION.ToString() + ";\n";
-    }
+      return this.ELECTRODE_N.ToString() + ";" + this.ELECTRODE_DISTANCE.ToString() + ";" + 
+             this.ELECTRODE_DIAMETER.ToString() + ";" + this.PAD_L.ToString() + ";" + 
+             this.WIRE_MIN_WIDTH.ToString() + ";" + this.SQUARE_WIDTH.ToString() + ";" + 
+             this.SQUARE_L.ToString() + ";" + this.CHIP_MARGIN.ToString() + ";" + 
+             this.REF_SEPARATION.ToString() + ";\n";
+}
   }
 }

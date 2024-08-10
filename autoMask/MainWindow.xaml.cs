@@ -1,28 +1,11 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: autoMask.MainWindow
-// Assembly: autoMask, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 93C42831-928E-4BBC-8F9F-03F21363630D
-// Assembly location: D:\TFM\automask\autoMask.dll
-
-using Microsoft.Win32;
-using System;
-using System.CodeDom.Compiler;
+﻿using Microsoft.Win32;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO.Compression;
-using System.Linq;
-using System.Runtime.Intrinsics.X86;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Xml.Linq;
 
-#nullable enable
 namespace autoMask
 {
     public partial class MainWindow : Window, IComponentConnector
@@ -46,17 +29,12 @@ namespace autoMask
         public static int sputteringHeight = ConfigWindow.SPUTTERING_HEIGHT_NM;
         public static int sputteringMaterial = ConfigWindow.GOLD_CONDUCTANCE_S;
         private string Author = "Hector Rodriguez Rodriguez TFM - UPM - CEI";
-        public cifFile file;
+        public CifFile file;
         private Canvas cv;
         private ScaleTransform cv_st = new ScaleTransform();
         private TranslateTransform cv_tt = new TranslateTransform();
         private int cvWidth = 1180;
         private int cvHeight = 1000;
-        internal
-#nullable disable
-        Canvas container;
-        internal TabControl wireReports;
-        private bool _contentLoaded;
 
         public MainWindow()
         {
@@ -69,9 +47,7 @@ namespace autoMask
             this.previousPosition.Y = 0.0;
         }
 
-        private void cv_MouseWheel(
-#nullable enable
-        object sender, MouseWheelEventArgs e)
+        private void cv_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             this.zoom += this.zoomSpeed * (double)e.Delta;
             if (this.zoom < this.zoomMin)
@@ -135,7 +111,7 @@ namespace autoMask
                 return;
             this.cv_st.ScaleX = 0.005;
             this.cv_st.ScaleY = 0.005;
-            new cifFile(openFileDialog.FileName).Read();
+            new CifFile(openFileDialog.FileName).Read();
             this.Draw();
             this.WireReport();
         }
@@ -161,7 +137,7 @@ namespace autoMask
                 newItem2.BorderThickness = new Thickness(2.0);
                 DataGrid dataGrid = new DataGrid();
                 dataGrid.AutoGenerateColumns = true;
-                dataGrid.ItemsSource = (IEnumerable)Auto.WireReport(this.file.MainElement.SubElements[index], MainWindow.wireReportPath);
+                dataGrid.ItemsSource = (IEnumerable)CifAuto.WireReport(this.file.MainElement.SubElements[index], MainWindow.wireReportPath);
                 newItem2.Content = (object)dataGrid;
                 this.wireReports.Items.Add((object)newItem2);
             }
@@ -174,29 +150,26 @@ namespace autoMask
 
         public void Generate_Chips()
         {
-            this.file = new cifFile(this.Author, new List<int>()
-            {
-                0
-      }, MainWindow.maskSavePath);
+            this.file = new CifFile(this.Author, new List<int>(){0}, MainWindow.maskSavePath);
             List<Element> els = new List<Element>();
             for (int index = 0; index < MaskWindow.Chips.Count<Chip>(); ++index)
             {
                 Element el = new Element();
                 el.Index = index;
                 el.Name = "Element " + index.ToString();
-                Auto.Electrodes(el, MaskWindow.Chips[index]);
-                Auto.Pads2sides(el, MaskWindow.Chips[index]);
+                CifAuto.Electrodes(el, MaskWindow.Chips[index]);
+                CifAuto.Pads2sides(el, MaskWindow.Chips[index]);
                 if (MainWindow.optWire)
-                    Auto.VariableWires(el, MaskWindow.Chips[index], MainWindow.eqWire);
+                    CifAuto.VariableWires(el, MaskWindow.Chips[index], MainWindow.eqWire);
                 else
-                    Auto.Wires(el, MaskWindow.Chips[index]);
-                Auto.Squares(el, MaskWindow.Chips[index]);
-                Auto.GroundReference(el, MaskWindow.Chips[index]);
+                    CifAuto.Wires(el, MaskWindow.Chips[index]);
+                CifAuto.Squares(el, MaskWindow.Chips[index]);
+                CifAuto.GroundReference(el, MaskWindow.Chips[index]);
                 els.Add(el);
             }
             this.file.MainElement.Name = "Main Element";
             this.file.MainElement.Index = els.Count;
-            Auto.ElementPlace(this.file, els, MaskWindow.Chips[0]);
+            CifAuto.ElementPlace(this.file, els, MaskWindow.Chips[0]);
             this.file.Save();
         }
 
@@ -211,10 +184,7 @@ namespace autoMask
             this.cv = canvas;
             this.cv.RenderTransform = (Transform)new TransformGroup()
             {
-                Children = {
-          (Transform) this.cv_st,
-          (Transform) this.cv_tt
-        }
+                Children = {(Transform) this.cv_st, (Transform) this.cv_tt}
             };
             this.cv.CacheMode = (CacheMode)new BitmapCache(100.0);
             this.container.Children.Clear();
@@ -227,51 +197,7 @@ namespace autoMask
             if (!MainWindow.viewChamber)
                 return;
             foreach (Element subElement in this.file.MainElement.SubElements)
-                subElement.DrawChamber(this.cv, aux.Scale(subElement.Position, this.cv));
-        }
-
-        [DebuggerNonUserCode]
-        [GeneratedCode("PresentationBuildTasks", "8.0.0.0")]
-        public void InitializeComponent()
-        {
-            if (this._contentLoaded)
-                return;
-            this._contentLoaded = true;
-            Application.LoadComponent((object)this, new Uri("/autoMask;component/mainwindow.xaml", UriKind.Relative));
-        }
-
-        [DebuggerNonUserCode]
-        [GeneratedCode("PresentationBuildTasks", "8.0.0.0")]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        void IComponentConnector.Connect(int connectionId,
-#nullable disable
-        object target)
-        {
-            switch (connectionId)
-            {
-                case 1:
-                    ((ButtonBase)target).Click += new RoutedEventHandler(this.Button_Read_File_Click);
-                    break;
-                case 2:
-                    ((ButtonBase)target).Click += new RoutedEventHandler(this.Button_New_File_Click);
-                    break;
-                case 3:
-                    ((ButtonBase)target).Click += new RoutedEventHandler(this.Settings_Click);
-                    break;
-                case 4:
-                    this.container = (Canvas)target;
-                    this.container.MouseMove += new MouseEventHandler(this.cv_MouseMove);
-                    this.container.MouseRightButtonUp += new MouseButtonEventHandler(this.cv_MouseRightButtonUp);
-                    this.container.MouseRightButtonDown += new MouseButtonEventHandler(this.cv_MouseRightButtonDown);
-                    this.container.MouseWheel += new MouseWheelEventHandler(this.cv_MouseWheel);
-                    break;
-                case 5:
-                    this.wireReports = (TabControl)target;
-                    break;
-                default:
-                    this._contentLoaded = true;
-                    break;
-            }
+                subElement.DrawChamber(this.cv, auxFun.Scale(subElement.Position, this.cv));
         }
     }
 }

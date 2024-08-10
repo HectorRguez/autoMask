@@ -1,38 +1,16 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: autoMask.MaskWindow
-// Assembly: autoMask, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 93C42831-928E-4BBC-8F9F-03F21363630D
-// Assembly location: D:\TFM\automask\autoMask.dll
-
-using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Markup;
 
-#nullable enable
 namespace autoMask
 {
-    public partial class MaskWindow : Window, IComponentConnector
+    public partial class MaskWindow : Window
     {
         private List<List<TextBox>> tbs = new List<List<TextBox>>();
         private bool isLoading;
-        internal
-#nullable disable
-        TabControl chipReports;
-        internal Button saveMaskBtn;
-        private bool _contentLoaded;
 
-        public static
-#nullable enable
-        List<Chip> Chips
+        public static List<Chip> Chips
         { get; set; }
 
         public MaskWindow()
@@ -104,15 +82,15 @@ namespace autoMask
             }
             string[] strArray = new string[9]
             {
-        "ELECTRODE N",
-        "ELECTRODE DISTANCE",
-        "ELECTRODE DIAMETER",
-        "PAD_L",
-        "WIRE MIN WIDTH",
-        "SQUARE WIDTH",
-        "SQUARE L",
-        "CHIP MARGIN",
-        "REF SEPARATION"
+                "ELECTRODE N",
+                "ELECTRODE DISTANCE",
+                "ELECTRODE DIAMETER",
+                "PAD_L",
+                "WIRE MIN WIDTH",
+                "SQUARE WIDTH",
+                "SQUARE L",
+                "CHIP MARGIN",
+                "REF SEPARATION"
             };
             TabItem newItem = new TabItem();
             newItem.Header = (object)("Chip " + num1.ToString());
@@ -164,16 +142,16 @@ namespace autoMask
         {
             string[] strArray = new string[10]
             {
-        MaskWindow.Chips[i].ELECTRODE_N.ToString(),
-        this.FormatData(MaskWindow.Chips[i].ELECTRODE_DISTANCE),
-        this.FormatData(MaskWindow.Chips[i].ELECTRODE_DIAMETER),
-        this.FormatData(MaskWindow.Chips[i].PAD_L),
-        this.FormatData(MaskWindow.Chips[i].WIRE_MIN_WIDTH),
-        this.FormatData(MaskWindow.Chips[i].SQUARE_WIDTH),
-        this.FormatData(MaskWindow.Chips[i].SQUARE_L),
-        this.FormatData(MaskWindow.Chips[i].CHIP_MARGIN),
-        this.FormatData(MaskWindow.Chips[i].REF_SEPARATION),
-        this.FormatData(MaskWindow.Chips[i].REF_H)
+                MaskWindow.Chips[i].ELECTRODE_N.ToString(),
+                this.FormatData(MaskWindow.Chips[i].ELECTRODE_DISTANCE),
+                this.FormatData(MaskWindow.Chips[i].ELECTRODE_DIAMETER),
+                this.FormatData(MaskWindow.Chips[i].PAD_L),
+                this.FormatData(MaskWindow.Chips[i].WIRE_MIN_WIDTH),
+                this.FormatData(MaskWindow.Chips[i].SQUARE_WIDTH),
+                this.FormatData(MaskWindow.Chips[i].SQUARE_L),
+                this.FormatData(MaskWindow.Chips[i].CHIP_MARGIN),
+                this.FormatData(MaskWindow.Chips[i].REF_SEPARATION),
+                this.FormatData(MaskWindow.Chips[i].REF_H)
             };
             int index = 0;
             foreach (TextBox textBox in this.tbs[i])
@@ -188,15 +166,15 @@ namespace autoMask
             int index = 0;
             foreach (Chip chip in MaskWindow.Chips)
             {
-                MaskWindow.Chips[index].ELECTRODE_N = int.Parse(this.tbs[index].ElementAt<TextBox>(0).Text);
+                MaskWindow.Chips[index].ELECTRODE_N        = int.Parse(this.tbs[index].ElementAt<TextBox>(0).Text);
                 MaskWindow.Chips[index].ELECTRODE_DISTANCE = this.ParseData(this.tbs[index].ElementAt<TextBox>(1).Text);
                 MaskWindow.Chips[index].ELECTRODE_DIAMETER = this.ParseData(this.tbs[index].ElementAt<TextBox>(2).Text);
-                MaskWindow.Chips[index].PAD_L = this.ParseData(this.tbs[index].ElementAt<TextBox>(3).Text);
-                MaskWindow.Chips[index].WIRE_MIN_WIDTH = this.ParseData(this.tbs[index].ElementAt<TextBox>(4).Text);
-                MaskWindow.Chips[index].SQUARE_WIDTH = this.ParseData(this.tbs[index].ElementAt<TextBox>(5).Text);
-                MaskWindow.Chips[index].SQUARE_L = this.ParseData(this.tbs[index].ElementAt<TextBox>(6).Text);
-                MaskWindow.Chips[index].CHIP_MARGIN = this.ParseData(this.tbs[index].ElementAt<TextBox>(7).Text);
-                MaskWindow.Chips[index].REF_SEPARATION = this.ParseData(this.tbs[index].ElementAt<TextBox>(8).Text);
+                MaskWindow.Chips[index].PAD_L              = this.ParseData(this.tbs[index].ElementAt<TextBox>(3).Text);
+                MaskWindow.Chips[index].WIRE_MIN_WIDTH     = this.ParseData(this.tbs[index].ElementAt<TextBox>(4).Text);
+                MaskWindow.Chips[index].SQUARE_WIDTH       = this.ParseData(this.tbs[index].ElementAt<TextBox>(5).Text);
+                MaskWindow.Chips[index].SQUARE_L           = this.ParseData(this.tbs[index].ElementAt<TextBox>(6).Text);
+                MaskWindow.Chips[index].CHIP_MARGIN        = this.ParseData(this.tbs[index].ElementAt<TextBox>(7).Text);
+                MaskWindow.Chips[index].REF_SEPARATION     = this.ParseData(this.tbs[index].ElementAt<TextBox>(8).Text);
                 ++index;
             }
         }
@@ -223,7 +201,8 @@ namespace autoMask
             string pattern = "^(\\d+[.,]?\\d*)\\s*(mm|um|nm)\\s*$";
             Match match = Regex.Match(data, pattern);
             if (!match.Success)
-                throw new Exception("Incorrect data format, please introduce a decimal number followed the corresponding units, which can be either 'mm', 'um' or 'nm'");
+                throw new Exception("Incorrect data format, please introduce a decimal number " +
+                    "followed the corresponding units, which can be either 'mm', 'um' or 'nm'");
             string s = match.Groups[1].Value.Replace('.', ',');
             string str = match.Groups[2].Value;
             double num = double.Parse(s);
@@ -259,47 +238,6 @@ namespace autoMask
             else if (num2 >= 6)
                 str = (num1 / 1000000.0).ToString() + "mm";
             return str;
-        }
-
-        [DebuggerNonUserCode]
-        [GeneratedCode("PresentationBuildTasks", "8.0.0.0")]
-        public void InitializeComponent()
-        {
-            if (this._contentLoaded)
-                return;
-            this._contentLoaded = true;
-            Application.LoadComponent((object)this, new Uri("/autoMask;component/maskwindow.xaml", UriKind.Relative));
-        }
-
-        [DebuggerNonUserCode]
-        [GeneratedCode("PresentationBuildTasks", "8.0.0.0")]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        void IComponentConnector.Connect(int connectionId,
-#nullable disable
-        object target)
-        {
-            switch (connectionId)
-            {
-                case 1:
-                    this.chipReports = (TabControl)target;
-                    break;
-                case 2:
-                    ((ButtonBase)target).Click += new RoutedEventHandler(this.Generate_File_Click);
-                    break;
-                case 3:
-                    this.saveMaskBtn = (Button)target;
-                    this.saveMaskBtn.Click += new RoutedEventHandler(this.Save_Config_Click);
-                    break;
-                case 4:
-                    ((ButtonBase)target).Click += new RoutedEventHandler(this.Add_Chip_Click);
-                    break;
-                case 5:
-                    ((ButtonBase)target).Click += new RoutedEventHandler(this.Remove_Chip_Click);
-                    break;
-                default:
-                    this._contentLoaded = true;
-                    break;
-            }
         }
     }
 }

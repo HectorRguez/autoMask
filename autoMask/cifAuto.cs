@@ -1,21 +1,11 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: autoMask.Auto
-// Assembly: autoMask, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 93C42831-928E-4BBC-8F9F-03F21363630D
-// Assembly location: D:\TFM\automask\autoMask.dll
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Data;
 using System.IO;
-using System.Linq;
 using System.Numerics;
 
-#nullable enable
 namespace autoMask
 {
-  internal static class Auto
+  internal static class CifAuto
   {
     public static void Electrodes(Element el, Chip ma)
     {
@@ -267,7 +257,7 @@ namespace autoMask
       });
     }
 
-    public static void ElementPlace(cifFile ci, List<Element> els, Chip ma)
+    public static void ElementPlace(CifFile ci, List<Element> els, Chip ma)
     {
       int num = -(ma.CHIP_WIDTH * els.Count<Element>()) / 2 + ma.CHIP_WIDTH / 2;
       for (int index = 0; index < els.Count<Element>(); ++index)
