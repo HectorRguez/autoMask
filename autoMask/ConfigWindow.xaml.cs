@@ -2,18 +2,15 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Markup;
 
 namespace autoMask
 {
-    public partial class ConfigWindow : Window, IComponentConnector
+    public partial class ConfigWindow : Window
     {
         public static int GOLD_CONDUCTANCE_S = 41000000;
         public static int PALLADIUM_CONDUCTANCE_S = 10000000;
         public static int SPUTTERING_HEIGHT_NM = 30;
         private bool isLoading = true;
-
-       
 
         public ConfigWindow()
         {

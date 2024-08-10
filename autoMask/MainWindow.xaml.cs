@@ -3,12 +3,11 @@ using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace autoMask
 {
-    public partial class MainWindow : Window, IComponentConnector
+    public partial class MainWindow : Window
     {
         private double zoomMax = 0.15;
         private double zoomMin = 0.001;
