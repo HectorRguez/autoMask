@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autoMask"
-        Title="ConfigWindow" Height="365" Width="563">
+        Title="ConfigWindow" Height="290" Width="563">
     <StackPanel Orientation="Vertical">
         <DockPanel>
             <Label VerticalAlignment="Center">File Save path</Label>
@@ -23,11 +23,7 @@
             </TextBox>
         </DockPanel>
         <Separator/>
-        <DockPanel>
-            <Label VerticalAlignment="Center" DockPanel.Dock="Left">View Silicom Wafer</Label>
-            <CheckBox Click="Value_Changed" x:Name="siWaferView" DockPanel.Dock="Right" HorizontalAlignment="Right"
-                Margin="8,5" VerticalAlignment="Center"/>
-        </DockPanel>
+       
         <DockPanel>
             <Label VerticalAlignment="Center" DockPanel.Dock="Left">
                 View Microfluidic Chambers
@@ -35,11 +31,7 @@
             <CheckBox Click="Value_Changed" x:Name="miChambView" DockPanel.Dock="Right" HorizontalAlignment="Right"
                 Margin="8,5" VerticalAlignment="Center"/>
         </DockPanel>
-        <DockPanel>
-            <Label VerticalAlignment="Center" DockPanel.Dock="Left">View Grid</Label>
-            <CheckBox Click="Value_Changed" x:Name="gridView" DockPanel.Dock="Right" HorizontalAlignment="Right"
-                Margin="8,5" VerticalAlignment="Center"/>
-        </DockPanel>
+        
         <Separator/>
         <DockPanel>
             <Label VerticalAlignment="Center">Metal Conductivity</Label>

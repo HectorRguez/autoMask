@@ -140,54 +140,6 @@ label_24:
   }
 
   public void Draw(Canvas cv) => this.MainElement.Draw(cv);
-
-  public void DrawWafer(Canvas cv)
-  {
-    int num = 152400;
-    Ellipse ellipse = new Ellipse();
-    ellipse.Width = (double) num;
-    ellipse.Height = (double) num;
-    ellipse.Stroke = (Brush) new BrushConverter().ConvertFrom((object) "#232323");
-    ellipse.StrokeThickness = 0.0;
-    ellipse.Fill = (Brush) new BrushConverter().ConvertFrom((object) "#f8f5f2");
-    Ellipse element = ellipse;
-    cv.Children.Add((UIElement) element);
-    Panel.SetZIndex((UIElement) element, -2);
-    element.SetValue(Canvas.LeftProperty, (object) ((double) -num / 2.0));
-    element.SetValue(Canvas.TopProperty, (object) ((double) -num / 2.0));
-  }
-
-  public void DrawGrid(Canvas cv)
-  {
-    int num = 10000000;
-    for (int index = 0; index < 16; ++index)
-    {
-      Vector2 vector1 = new Vector2((float) (-15 * num / 2 + num * index), 8E+07f);
-      Vector2 vector2 = new Vector2((float) (-15 * num / 2 + num * index), -8E+07f);
-      Line line1 = new Line();
-      line1.X1 = (double) auxFun.Scale(vector1, cv).X;
-      line1.Y1 = (double) auxFun.Scale(vector1, cv).Y;
-      line1.X2 = (double) auxFun.Scale(vector2, cv).X;
-      line1.Y2 = (double) auxFun.Scale(vector2, cv).Y;
-      line1.StrokeThickness = 400.0;
-      line1.Stroke = (Brush) new BrushConverter().ConvertFrom((object) "#FFFFFF");
-      Line element1 = line1;
-      cv.Children.Add((UIElement) element1);
-      Panel.SetZIndex((UIElement) element1, -1);
-      Vector2 vector3 = new Vector2(-8E+07f, (float) (15 * num / 2 - num * index));
-      Vector2 vector4 = new Vector2(8E+07f, (float) (15 * num / 2 - num * index));
-      Line line2 = new Line();
-      line2.X1 = (double) auxFun.Scale(vector3, cv).X;
-      line2.Y1 = (double) auxFun.Scale(vector3, cv).Y;
-      line2.X2 = (double) auxFun.Scale(vector4, cv).X;
-      line2.Y2 = (double) auxFun.Scale(vector4, cv).Y;
-      line2.StrokeThickness = 400.0;
-      line2.Stroke = (Brush) new BrushConverter().ConvertFrom((object) "#FFFFFF");
-      Line element2 = line2;
-      cv.Children.Add((UIElement) element2);
-      Panel.SetZIndex((UIElement) element2, -1);
-    }
-  }
 }
 
 public class Element
@@ -315,7 +267,7 @@ public class Element
         Vector2 vector2 = new Vector2(0.0f, 0.0f);
         try
         {
-            int num = int.Parse(Regex.Match(line, "^C([0-9]+)(.*);").Groups[1].Value);
+            int num = int.Parse(Regex.Match(line, "^C\\s*([0-9]+)(.*);").Groups[1].Value);
             if (Regex.IsMatch(line, "T\\s*(.*);"))
             {
                 string[] strArray = Regex.Split(Regex.Match(line, "T\\s*(.*);").Groups[1].Value, "\\s+");
@@ -353,7 +305,7 @@ public class Element
         ellipse1.Width = (double)auxFun.Scale(4000000);
         ellipse1.Height = (double)auxFun.Scale(4000000);
         ellipse1.Stroke = (Brush)new BrushConverter().ConvertFrom((object)"#232323");
-        ellipse1.StrokeThickness = 200.0;
+        ellipse1.StrokeThickness = 1.0;
         ellipse1.Fill = (Brush)Brushes.Transparent;
         Ellipse element1 = ellipse1;
         cv.Children.Add((UIElement)element1);
@@ -366,7 +318,7 @@ public class Element
         ellipse2.Width = (double)auxFun.Scale(4000000);
         ellipse2.Height = (double)auxFun.Scale(4000000);
         ellipse2.Stroke = (Brush)new BrushConverter().ConvertFrom((object)"#232323");
-        ellipse2.StrokeThickness = 200.0;
+        ellipse2.StrokeThickness = 1.0;
         ellipse2.Fill = (Brush)Brushes.Transparent;
         Ellipse element2 = ellipse2;
         cv.Children.Add((UIElement)element2);
@@ -379,7 +331,7 @@ public class Element
         rectangle1.Width = (double)auxFun.Scale(25000000);
         rectangle1.Height = (double)auxFun.Scale(70000000);
         rectangle1.Stroke = (Brush)new BrushConverter().ConvertFrom((object)"#232323");
-        rectangle1.StrokeThickness = 200.0;
+        rectangle1.StrokeThickness = 1.0;
         rectangle1.Fill = (Brush)Brushes.Transparent;
         Rectangle element3 = rectangle1;
         cv.Children.Add((UIElement)element3);
@@ -392,7 +344,7 @@ public class Element
         rectangle2.Width = (double)auxFun.Scale(10000000);
         rectangle2.Height = (double)auxFun.Scale(17000000);
         rectangle2.Stroke = (Brush)new BrushConverter().ConvertFrom((object)"#232323");
-        rectangle2.StrokeThickness = 200.0;
+        rectangle2.StrokeThickness = 1.0;
         rectangle2.Fill = (Brush)Brushes.Transparent;
         Rectangle element4 = rectangle2;
         cv.Children.Add((UIElement)element4);

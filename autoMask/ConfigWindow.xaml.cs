@@ -16,9 +16,7 @@ namespace autoMask
         {
             this.InitializeComponent();
             this.isLoading = true;
-            this.siWaferView.IsChecked = new bool?(MainWindow.viewWafer);
             this.miChambView.IsChecked = new bool?(MainWindow.viewChamber);
-            this.gridView.IsChecked = new bool?(MainWindow.viewGrid);
             this.optWires.IsChecked = new bool?(MainWindow.optWire);
             this.eqWires.IsChecked = new bool?(MainWindow.eqWire);
             this.savePath.Text = MainWindow.maskSavePath;
@@ -59,9 +57,7 @@ namespace autoMask
 
         private void Button_Save_Changes_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.viewWafer = this.siWaferView.IsChecked.Value;
             MainWindow.viewChamber = this.miChambView.IsChecked.Value;
-            MainWindow.viewGrid = this.gridView.IsChecked.Value;
             MainWindow.maskSavePath = this.savePath.Text;
             MainWindow.wireReportPath = this.reportPath.Text;
             MainWindow.optWire = this.optWires.IsChecked.Value;

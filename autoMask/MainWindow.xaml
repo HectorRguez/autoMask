@@ -22,10 +22,11 @@
                     <Button Click="Settings_Click" Width="100" Height="30" Margin="10,10">Settings</Button>
                 </StackPanel>
                 <Border Grid.Row="1" BorderThickness="0" BorderBrush="#232323" Margin="10">
-                    <Canvas MouseMove="cv_MouseMove" MouseRightButtonUp="cv_MouseRightButtonUp"
-                  MouseRightButtonDown="cv_MouseRightButtonDown" MouseWheel="cv_MouseWheel" x:Name="container"
-                  Grid.Column="0" ClipToBounds="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                  Visibility="Visible" Background="Transparent"/>
+                    <local:ZoomBorder x:Name="border" ClipToBounds="True" Background="Transparent">
+                        <Canvas x:Name="container"
+                        Grid.Column="0" ClipToBounds="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        Visibility="Visible" Background="Transparent"/>
+                    </local:ZoomBorder>
                 </Border>
             </Grid>
             <TabControl x:Name="wireReports" Grid.Column="1" Background="#f8f5f2" BorderThickness="0"/>

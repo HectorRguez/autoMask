@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 public static class auxFun
 {
-  public const float SCALE_FACTOR = 1000f;
+  public const float SCALE_FACTOR = 150000;
   public const int FILE_PRECISSION = 1000;
 
   public static int um2nm(double um)
@@ -16,15 +16,15 @@ public static class auxFun
 
   public static Vector2 Scale(Vector2 vector, Canvas cv)
   {
-    Vector2 vector2 = Vector2.Divide(vector, 1000f);
+    Vector2 vector2 = Vector2.Divide(vector, SCALE_FACTOR);
     vector2.Y = -vector2.Y;
     return vector2;
   }
 
   public static float Scale(int value)
   {
-    return value <= 10000 ? (float) ((double) value / 1000.0 * 8.0) : (float) value / 1000f;
+    return value <= 10000 ? (float) ((double) value / SCALE_FACTOR * 8.0) : (float) value / SCALE_FACTOR;
   }
 
-  public static double Scale(double value) => value / 1000.0;
+  public static double Scale(double value) => value / SCALE_FACTOR;
 }
