@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:autoMask"
-        Title="ConfigWindow" Height="290" Width="563">
+        Title="ConfigWindow" Height="310" Width="563">
     <StackPanel Orientation="Vertical">
         <DockPanel>
             <Label VerticalAlignment="Center">File Save path</Label>
@@ -24,13 +24,7 @@
         </DockPanel>
         <Separator/>
        
-        <DockPanel>
-            <Label VerticalAlignment="Center" DockPanel.Dock="Left">
-                View Microfluidic Chambers
-            </Label>
-            <CheckBox Click="Value_Changed" x:Name="miChambView" DockPanel.Dock="Right" HorizontalAlignment="Right"
-                Margin="8,5" VerticalAlignment="Center"/>
-        </DockPanel>
+       
         
         <Separator/>
         <DockPanel>
@@ -64,10 +58,18 @@
             <CheckBox Click="Value_Changed" x:Name="eqWires" DockPanel.Dock="Right" HorizontalAlignment="Right"
                 Margin="8,5" VerticalAlignment="Center"/>
         </DockPanel>
+        <DockPanel>
+            <Label VerticalAlignment="Center" DockPanel.Dock="Left">
+                View Microfluidic Chambers
+            </Label>
+            <CheckBox Click="Value_Changed" x:Name="miChambView" DockPanel.Dock="Right" HorizontalAlignment="Right"
+         Margin="8,5" VerticalAlignment="Center"/>
+        </DockPanel>
         <Separator/>
         <DockPanel>
             <Button Click="Button_Save_Changes_Click" x:Name="saveConfig" DockPanel.Dock="Right" Width="120"
               Height="30" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Center" IsEnabled="False">Apply Changes</Button>
         </DockPanel>
+        
     </StackPanel>
 </Window>

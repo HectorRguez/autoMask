@@ -1,7 +1,7 @@
-﻿//using Microsoft.WindowsAPICodePack.Shell;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using Microsoft.Win32;
 
 namespace autoMask
 {
@@ -29,30 +29,26 @@ namespace autoMask
 
         private void Button_Wire_Report_Click(object sender, RoutedEventArgs e)
         {
-        //    CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog();
-        //    commonOpenFileDialog.InitialDirectory = "c:\\";
-        //    commonOpenFileDialog.IsFolderPicker = true;
-        //    commonOpenFileDialog.InitialDirectory = MainWindow.maskOpenPath;
-        //    if (commonOpenFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
-        //    {
-        //        MainWindow.wireReportPath = commonOpenFileDialog.FileName + "\\report.csv";
-        //        this.reportPath.Text = MainWindow.wireReportPath;
-        //    }
-        //    this.Activate();
+            OpenFolderDialog folderOpenFileDialog = new OpenFolderDialog();
+            folderOpenFileDialog.InitialDirectory = MainWindow.maskOpenPath;
+            if (folderOpenFileDialog.ShowDialog() == true)
+            {
+                MainWindow.wireReportPath = folderOpenFileDialog.FolderName + "\\report.csv";
+                this.reportPath.Text = folderOpenFileDialog.FolderName;
+            }
+            this.Activate();
         }
 
         private void Button_Save_Click(object sender, RoutedEventArgs e)
         {
-        //    CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog();
-        //    commonOpenFileDialog.InitialDirectory = "c:\\";
-        //    commonOpenFileDialog.IsFolderPicker = true;
-        //    commonOpenFileDialog.InitialDirectory = MainWindow.maskOpenPath;
-        //    if (commonOpenFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
-        //    {
-        //        MainWindow.maskSavePath = commonOpenFileDialog.FileName + "\\CifAuto_mask.cif";
-        //        this.savePath.Text = MainWindow.maskSavePath;
-        //    }
-        //    this.Activate();
+            OpenFolderDialog folderOpenFileDialog = new OpenFolderDialog();
+            folderOpenFileDialog.InitialDirectory = MainWindow.maskOpenPath;
+            if (folderOpenFileDialog.ShowDialog() == true)
+            {
+                MainWindow.maskSavePath = folderOpenFileDialog.FolderName + "\\CifAuto_mask.cif";
+                this.savePath.Text = folderOpenFileDialog.FolderName;
+            }
+            this.Activate();
         }
 
         private void Button_Save_Changes_Click(object sender, RoutedEventArgs e)
