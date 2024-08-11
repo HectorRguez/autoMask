@@ -29,35 +29,35 @@ namespace autoMask
 
         private void Button_Wire_Report_Click(object sender, RoutedEventArgs e)
         {
-            OpenFolderDialog folderOpenFileDialog = new OpenFolderDialog();
-            folderOpenFileDialog.InitialDirectory = MainWindow.maskOpenPath;
-            if (folderOpenFileDialog.ShowDialog() == true)
+            OpenFolderDialog commonOpenFileDialog = new OpenFolderDialog();
+            commonOpenFileDialog.InitialDirectory = MainWindow.maskOpenPath;
+            if (commonOpenFileDialog.ShowDialog() == true)
             {
-                MainWindow.wireReportPath = folderOpenFileDialog.FolderName + "\\report.csv";
-                this.reportPath.Text = folderOpenFileDialog.FolderName;
+                MainWindow.wireReportPath = commonOpenFileDialog.FolderName + "\\report.csv";
+                this.reportPath.Text = commonOpenFileDialog.FolderName;
             }
             this.Activate();
         }
 
         private void Button_Save_Click(object sender, RoutedEventArgs e)
         {
-            OpenFolderDialog folderOpenFileDialog = new OpenFolderDialog();
-            folderOpenFileDialog.InitialDirectory = MainWindow.maskOpenPath;
-            if (folderOpenFileDialog.ShowDialog() == true)
+            OpenFolderDialog commonOpenFileDialog = new OpenFolderDialog();
+            commonOpenFileDialog.InitialDirectory = MainWindow.maskOpenPath;
+            if (commonOpenFileDialog.ShowDialog() == true)
             {
-                MainWindow.maskSavePath = folderOpenFileDialog.FolderName + "\\CifAuto_mask.cif";
-                this.savePath.Text = folderOpenFileDialog.FolderName;
+                MainWindow.maskSavePath = commonOpenFileDialog.FolderName + "\\CifAuto_mask.cif";
+                this.savePath.Text = commonOpenFileDialog.FolderName;
             }
             this.Activate();
         }
 
         private void Button_Save_Changes_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.viewChamber = this.miChambView.IsChecked.Value;
+            MainWindow.viewChamber = this.miChambView.IsChecked.GetValueOrDefault();
             MainWindow.maskSavePath = this.savePath.Text;
             MainWindow.wireReportPath = this.reportPath.Text;
-            MainWindow.optWire = this.optWires.IsChecked.Value;
-            MainWindow.eqWire = this.eqWires.IsChecked.Value;
+            MainWindow.optWire = this.optWires.IsChecked.GetValueOrDefault();
+            MainWindow.eqWire = this.eqWires.IsChecked.GetValueOrDefault();
             MainWindow.sputteringHeight = int.Parse(this.HeightContainer.Text);
             MainWindow.sputteringMaterial = int.Parse(this.ConducContainer.Text) * 1000000;
             this.saveConfig.IsEnabled = false;

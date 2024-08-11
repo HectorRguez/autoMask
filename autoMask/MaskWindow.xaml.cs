@@ -10,13 +10,11 @@ namespace autoMask
         private List<List<TextBox>> tbs = new List<List<TextBox>>();
         private bool isLoading;
 
-        public static List<Chip> Chips
-        { get; set; }
+        public static List<Chip> Chips = new List<Chip>();
 
         public MaskWindow()
         {
             this.InitializeComponent();
-            MaskWindow.Chips = new List<Chip>();
             this.Load_Chips();
         }
 

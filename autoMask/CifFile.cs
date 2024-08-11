@@ -9,16 +9,16 @@ using System.Windows.Shapes;
 
 public class CifFile
 {
-  public string Author;
-  public List<int> Layers;
+  public string? Author;
+  public List<int>? Layers;
   public Element MainElement;
-  public string? SavePath;
+  public string SavePath;
   private string? data;
   public List<Element> InstanciatedElements = new List<Element>();
 
   public string Data
   {
-    get => this.data == null ? this.Write() : this.data;
+    get => (this.data == null) ? this.Write() : this.data;
     set => this.data = value;
   }
 
@@ -46,7 +46,11 @@ public class CifFile
 
   private string Write()
   {
-    string str = "(CIF written by " + this.Author + ");\n(Layer names:);\n";
+    string str = "";
+    str += (this.Author == null) ? "" : "(CIF written by " + this.Author + ");\n";
+    if (this.Layers == null)
+      throw new Exception("Error: Tried to write file without layers.");
+    str += "(Layer names:);\n";
     for (int index = 0; index < this.Layers.Count; ++index)
       str = str + "L L" + this.Layers[index].ToString() + "; (CleWin: Layer 0 / 0fe08080 0fe08080);\n";
     for (int index = 0; index < this.MainElement.SubElements.Count; ++index)
@@ -56,6 +60,7 @@ public class CifFile
 
   public void Read()
   {
+    
     using (StreamReader streamReader = new StreamReader(this.SavePath))
       this.Data = ((TextReader) streamReader).ReadToEnd();
     using (StringReader stringReader = new StringReader(this.Data))
@@ -63,10 +68,10 @@ public class CifFile
       Element element1 = new Element();
       int lineIndex = -1;
 
-      string line;
+      string? line;
       while (true)
       {
-        line = ((TextReader) stringReader).ReadLine();
+        line = stringReader.ReadLine();
         ++lineIndex;
         if (line != null)
         {
@@ -137,14 +142,14 @@ public class CifFile
 public class Element
 {
     public int Index;
-    public string Name;
+    public string? Name;
     public int Layer;
     public List<Circle> Circles;
     public List<Box> Boxes;
     public List<Wire> Wires;
     public List<Element> SubElements;
     public Vector2 Position;
-    public Canvas Cv;
+    public Canvas? Cv;
 
     private string nameMod => this.Name == null ? "" : this.Name.Replace(' ', '~');
 
@@ -296,52 +301,52 @@ public class Element
         Ellipse ellipse1 = new Ellipse();
         ellipse1.Width = (double)auxFun.Scale(4000000);
         ellipse1.Height = (double)auxFun.Scale(4000000);
-        ellipse1.Stroke = (Brush)new BrushConverter().ConvertFrom((object)"#232323");
+        ellipse1.Stroke = Brushes.Black;
         ellipse1.StrokeThickness = 1.0;
         ellipse1.Fill = (Brush)Brushes.Transparent;
         Ellipse element1 = ellipse1;
         cv.Children.Add((UIElement)element1);
-        element1.SetValue(Canvas.LeftProperty, (object)((double)vector2_1.X + (double)offset.X));
-        element1.SetValue(Canvas.TopProperty, (object)((double)vector2_1.Y + (double)offset.Y));
+        element1.SetValue(Canvas.LeftProperty, ((double)vector2_1.X + (double)offset.X));
+        element1.SetValue(Canvas.TopProperty, ((double)vector2_1.Y + (double)offset.Y));
         Vector2 vector2_2 = new Vector2();
         vector2_2.X = (float)(-(double)auxFun.Scale(4000000) / 2.0);
         vector2_2.Y = (float)(-(double)auxFun.Scale(25000000) + (double)auxFun.Scale(4000000) / 2.0);
         Ellipse ellipse2 = new Ellipse();
         ellipse2.Width = (double)auxFun.Scale(4000000);
         ellipse2.Height = (double)auxFun.Scale(4000000);
-        ellipse2.Stroke = (Brush)new BrushConverter().ConvertFrom((object)"#232323");
+        ellipse2.Stroke = Brushes.Black;
         ellipse2.StrokeThickness = 1.0;
-        ellipse2.Fill = (Brush)Brushes.Transparent;
+        ellipse2.Fill = Brushes.Transparent;
         Ellipse element2 = ellipse2;
-        cv.Children.Add((UIElement)element2);
-        element2.SetValue(Canvas.LeftProperty, (object)((double)vector2_2.X + (double)offset.X));
-        element2.SetValue(Canvas.TopProperty, (object)((double)vector2_2.Y + (double)offset.Y));
+        cv.Children.Add(element2);
+        element2.SetValue(Canvas.LeftProperty, ((double)vector2_2.X + (double)offset.X));
+        element2.SetValue(Canvas.TopProperty, ((double)vector2_2.Y + (double)offset.Y));
         Vector2 vector2_3 = new Vector2();
         vector2_3.X = (float)(-(double)auxFun.Scale(25000000) / 2.0);
         vector2_3.Y = (float)(-(double)auxFun.Scale(70000000) / 2.0);
         Rectangle rectangle1 = new Rectangle();
         rectangle1.Width = (double)auxFun.Scale(25000000);
         rectangle1.Height = (double)auxFun.Scale(70000000);
-        rectangle1.Stroke = (Brush)new BrushConverter().ConvertFrom((object)"#232323");
+        rectangle1.Stroke = Brushes.Black;
         rectangle1.StrokeThickness = 1.0;
-        rectangle1.Fill = (Brush)Brushes.Transparent;
+        rectangle1.Fill = Brushes.Transparent;
         Rectangle element3 = rectangle1;
-        cv.Children.Add((UIElement)element3);
-        element3.SetValue(Canvas.LeftProperty, (object)((double)vector2_3.X + (double)offset.X));
-        element3.SetValue(Canvas.TopProperty, (object)((double)vector2_3.Y + (double)offset.Y));
+        cv.Children.Add(element3);
+        element3.SetValue(Canvas.LeftProperty, ((double)vector2_3.X + (double)offset.X));
+        element3.SetValue(Canvas.TopProperty, ((double)vector2_3.Y + (double)offset.Y));
         Vector2 vector2_4 = new Vector2();
         vector2_4.X = (float)(-(double)auxFun.Scale(10000000) / 2.0);
         vector2_4.Y = -auxFun.Scale(14660000);
         Rectangle rectangle2 = new Rectangle();
         rectangle2.Width = (double)auxFun.Scale(10000000);
         rectangle2.Height = (double)auxFun.Scale(17000000);
-        rectangle2.Stroke = (Brush)new BrushConverter().ConvertFrom((object)"#232323");
+        rectangle2.Stroke = Brushes.Black;
         rectangle2.StrokeThickness = 1.0;
-        rectangle2.Fill = (Brush)Brushes.Transparent;
+        rectangle2.Fill = Brushes.Transparent;
         Rectangle element4 = rectangle2;
-        cv.Children.Add((UIElement)element4);
-        element4.SetValue(Canvas.LeftProperty, (object)((double)vector2_4.X + (double)offset.X));
-        element4.SetValue(Canvas.TopProperty, (object)((double)vector2_4.Y + (double)offset.Y));
+        cv.Children.Add(element4);
+        element4.SetValue(Canvas.LeftProperty, ((double)vector2_4.X + (double)offset.X));
+        element4.SetValue(Canvas.TopProperty, ((double)vector2_4.Y + (double)offset.Y));
     }
 }
 
@@ -391,9 +396,9 @@ public class Circle
         Ellipse ellipse = new Ellipse();
         ellipse.Width = (double)num;
         ellipse.Height = (double)num;
-        ellipse.Stroke = (Brush)new BrushConverter().ConvertFrom((object)"#cc4c43");
+        ellipse.Stroke = Brushes.Navy;
         ellipse.StrokeThickness = 1.0;
-        ellipse.Fill = (Brush)new BrushConverter().ConvertFrom((object)"#cc4c43");
+        ellipse.Fill = Brushes.Navy;
         Ellipse element = ellipse;
         cv.Children.Add((UIElement)element);
         element.SetValue(Canvas.LeftProperty, (object)((double)vector2.X + (double)offset.X));
@@ -454,7 +459,7 @@ public class Box
         rectangle.Width = (double)num1;
         rectangle.Height = (double)num2;
         rectangle.StrokeThickness = 0.0;
-        rectangle.Fill = (Brush)new BrushConverter().ConvertFrom((object)"#cc4c43");
+        rectangle.Fill = Brushes.Navy;
         Rectangle element = rectangle;
         cv.Children.Add((UIElement)element);
         element.SetValue(Canvas.LeftProperty, (object)((double)vector2.X + (double)offset.X));
@@ -466,22 +471,30 @@ public class Wire
 {
     public List<Vector2> Points;
     public List<int> Widths;
-    public int Length;
-    public double Resistance;
-    public List<int> Lengths;
+    public int Length
+    {
+        get => ComputeLength();
+    }
+    public double Resistance
+    {
+        get => ComputeResistance();
+    }
+    public List<int> Lengths
+    {
+        get => ComputeLengths();
+    }
 
     public Wire(List<Vector2> points, List<int> w)
     {
         this.Points = points;
         this.Widths = w;
+        
     }
-
     public Wire()
     {
         this.Points = new List<Vector2>();
         this.Widths = new List<int>();
     }
-
     public string Write()
     {
         string str1 = "";
@@ -541,7 +554,7 @@ public class Wire
             line.X2 = (double)auxFun.Scale(this.Points[index + 1], cv).X + (double)offset.X;
             line.Y2 = (double)auxFun.Scale(this.Points[index + 1], cv).Y + (double)offset.Y;
             line.StrokeThickness = (double)auxFun.Scale(this.Widths[index]);
-            line.Stroke = (Brush)new BrushConverter().ConvertFrom((object)"#cc4c43");
+            line.Stroke = Brushes.Navy;
             Line element = line;
             element.SnapsToDevicePixels = true;
             element.UseLayoutRounding = true;
@@ -549,20 +562,29 @@ public class Wire
         }
     }
 
-    public void UpdateLengths()
+    private List<int> ComputeLengths()
     {
-        this.Lengths = new List<int>();
-        for (int index = 0; index < this.Points.Count<Vector2>() - 1; ++index)
-            this.Lengths.Add((int)Vector2.Distance(this.Points[index], this.Points[index + 1]));
-        this.Length = 0;
-        for (int index = 0; index < this.Lengths.Count<int>(); ++index)
-            this.Length += this.Lengths[index];
-        this.Resistance = 0.0;
-        for (int index = 0; index < this.Lengths.Count<int>(); ++index)
+        List <int> lengths = new List<int>();
+        for (int index = 0; index < this.Points.Count - 1; ++index)
+            lengths.Add((int)Vector2.Distance(this.Points[index], this.Points[index + 1]));
+        return lengths;
+    }
+    private int ComputeLength()
+    {
+        int length = 0;
+        for (int index = 0; index < this.Lengths.Count; ++index)
+            length += this.Lengths[index];
+        return length;
+    }
+    private double ComputeResistance()
+    {
+        double resistance = 0.0;
+        for (int index = 0; index < this.Lengths.Count; ++index)
         {
             if (this.Widths[index] != 0)
-                this.Resistance += (double)this.Lengths[index] * Math.Pow(10.0, -9.0) / ((double)MainWindow.sputteringMaterial * (double)MainWindow.sputteringHeight * Math.Pow(10.0, -9.0) * (double)this.Widths[index] * Math.Pow(10.0, -9.0));
+                resistance += (double)this.Lengths[index] * Math.Pow(10.0, -9.0) / ((double)MainWindow.sputteringMaterial * (double)MainWindow.sputteringHeight * Math.Pow(10.0, -9.0) * (double)this.Widths[index] * Math.Pow(10.0, -9.0));
         }
+        return resistance;
     }
 }
 

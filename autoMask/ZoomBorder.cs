@@ -8,7 +8,7 @@ namespace autoMask
     // Reference: https://stackoverflow.com/questions/741956/pan-zoom-image
     public class ZoomBorder : Border
     {
-        private UIElement child = null;
+        private UIElement? child = null;
         private Point origin;
         private Point start;
 

@@ -9,15 +9,6 @@ namespace autoMask
 {
     public partial class MainWindow : Window
     {
-        // Movement and zoom
-        private double zoomMax = 0.15;
-        private double zoomMin = 0.001;
-        private double zoomSpeed = 1E-05;
-        private double zoom = 0.01;
-        protected bool isDragging;
-        private System.Windows.Point clickPosition;
-        private System.Windows.Point previousPosition;
-
         // Default configuraion
         public static string maskSavePath = AppDomain.CurrentDomain.BaseDirectory + "\\auto_mask.cif";
         public static string maskOpenPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -40,6 +31,8 @@ namespace autoMask
         public MainWindow()
         {
             this.InitializeComponent();
+            this.cv = new Canvas();
+            file = new CifFile(this.Author, new List<int>() { 0 }, MainWindow.maskSavePath);
         }
         
         private void Button_New_File_Click(object sender, RoutedEventArgs e)
@@ -95,7 +88,6 @@ namespace autoMask
 
         public void Generate_Chips()
         {
-            this.file = new CifFile(this.Author, new List<int>(){0}, MainWindow.maskSavePath);
             List<Element> els = new List<Element>();
             for (int index = 0; index < MaskWindow.Chips.Count<Chip>(); ++index)
             {

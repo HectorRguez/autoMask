@@ -78,7 +78,6 @@ namespace autoMask
         double num8 = 0.0;
         foreach (Wire wire in element2.Wires)
         {
-          wire.UpdateLengths();
           num8 += wire.Resistance;
         }
         if (num8 < num3)
@@ -118,7 +117,8 @@ namespace autoMask
           if (eqWire)
           {
             wire.Widths[3] = 0;
-            wire.UpdateLengths();
+            if(wire.Lengths == null)
+              throw new Exception("Wire lengths were not calculated correctly by UpdateLenghts()");
             double resistance = wire.Resistance;
             double num9 = num4 - resistance;
             double num10 = (double) wire.Lengths[3] * Math.Pow(10.0, -9.0) / ((double) MainWindow.sputteringMaterial * (double) MainWindow.sputteringHeight * Math.Pow(10.0, -9.0) * num9);
@@ -362,56 +362,58 @@ namespace autoMask
       dataTable.Columns.Add(new DataColumn("S3 W nm", typeof (string)));
       dataTable.Columns.Add(new DataColumn("R T ohm", typeof (string)));
       string str1 = "Index;Length;Length;Points;Points\n;nm;mm;nm;mm\n";
-      for (int index = 0; index < el.Wires.Count; ++index)
-      {
-        el.Wires[index].UpdateLengths();
-        DataRow dataRow = dataTable.NewRow();
-        string str2 = index.ToString();
-        dataRow[0] = (object) str2;
-        string str3 = str1 + str2 + ";";
-        int num = el.Wires[index].Lengths[0] / 1000;
-        string str4 = num.ToString();
-        dataRow[1] = (object) str4;
-        string str5 = str3 + str4 + ";";
-        num = el.Wires[index].Widths[0];
-        string str6 = num.ToString();
-        dataRow[5] = (object) str6;
-        string str7 = str5 + str6 + ";";
-        string str8;
-        if (el.Wires[index].Lengths.Count > 1)
-        {
-          num = el.Wires[index].Lengths[1] / 1000;
-          string str9 = num.ToString();
-          dataRow[2] = (object) str9;
-          string str10 = str7 + str9 + ";";
-          num = el.Wires[index].Widths[1];
-          string str11 = num.ToString();
-          dataRow[6] = (object) str11;
-          str8 = str10 + str11 + ";";
-        }
-        else
-          str8 = str7 + ";;";
-        if (el.Wires[index].Lengths.Count > 3)
-        {
-          num = el.Wires[index].Lengths[3] / 1000;
-          string str12 = num.ToString();
-          dataRow[3] = (object) str12;
-          string str13 = str8 + str12 + ";";
-          num = el.Wires[index].Widths[3];
-          string str14 = num.ToString();
-          dataRow[7] = (object) str14;
-          str8 = str13 + str14 + ";";
-        }
-        num = el.Wires[index].Length / 1000;
-        string str15 = num.ToString();
-        dataRow[4] = (object) str15;
-        string str16 = str8 + str15 + ";";
-        num = (int) el.Wires[index].Resistance;
-        string str17 = num.ToString();
-        dataRow[8] = (object) str17;
-        str1 = str16 + str17 + ";" + "\n";
-        dataTable.Rows.Add(dataRow);
-      }
+            for (int index = 0; index < el.Wires.Count; ++index)
+            {
+                if (el.Wires[index].Lengths != null)
+                {
+                    DataRow dataRow = dataTable.NewRow();
+                    string str2 = index.ToString();
+                    dataRow[0] = (object)str2;
+                    string str3 = str1 + str2 + ";";
+                    int num = el.Wires[index].Lengths[0] / 1000;
+                    string str4 = num.ToString();
+                    dataRow[1] = (object)str4;
+                    string str5 = str3 + str4 + ";";
+                    num = el.Wires[index].Widths[0];
+                    string str6 = num.ToString();
+                    dataRow[5] = (object)str6;
+                    string str7 = str5 + str6 + ";";
+                    string str8;
+                    if (el.Wires[index].Lengths.Count > 1)
+                    {
+                        num = el.Wires[index].Lengths[1] / 1000;
+                        string str9 = num.ToString();
+                        dataRow[2] = (object)str9;
+                        string str10 = str7 + str9 + ";";
+                        num = el.Wires[index].Widths[1];
+                        string str11 = num.ToString();
+                        dataRow[6] = (object)str11;
+                        str8 = str10 + str11 + ";";
+                    }
+                    else
+                        str8 = str7 + ";;";
+                    if (el.Wires[index].Lengths.Count > 3)
+                    {
+                        num = el.Wires[index].Lengths[3] / 1000;
+                        string str12 = num.ToString();
+                        dataRow[3] = (object)str12;
+                        string str13 = str8 + str12 + ";";
+                        num = el.Wires[index].Widths[3];
+                        string str14 = num.ToString();
+                        dataRow[7] = (object)str14;
+                        str8 = str13 + str14 + ";";
+                    }
+                    num = el.Wires[index].Length / 1000;
+                    string str15 = num.ToString();
+                    dataRow[4] = (object)str15;
+                    string str16 = str8 + str15 + ";";
+                    num = (int)el.Wires[index].Resistance;
+                    string str17 = num.ToString();
+                    dataRow[8] = (object)str17;
+                    str1 = str16 + str17 + ";" + "\n";
+                    dataTable.Rows.Add(dataRow);
+                }
+            }
       using (StreamWriter streamWriter = new StreamWriter(savePath))
         ((TextWriter) streamWriter).Write(str1);
       return (ICollection) new DataView(dataTable);
