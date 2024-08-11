@@ -29,7 +29,7 @@
                     </local:ZoomBorder>
                 </Border>
             </Grid>
-            <TabControl x:Name="wireReports" Grid.Column="1" Background="#f8f5f2" BorderThickness="0"/>
+            <TabControl x:Name="wireReports" Grid.Column="1" Background="#f8f5f2" />
         </Grid>
     </Grid>
 </Window>

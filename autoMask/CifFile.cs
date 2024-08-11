@@ -48,7 +48,7 @@ public class CifFile
   {
     string str = "(CIF written by " + this.Author + ");\n(Layer names:);\n";
     for (int index = 0; index < this.Layers.Count; ++index)
-      str = str + "L L" + this.Layers[index].ToString() + " (CleWin: Layer 0 / 0fe08080 0fe08080);\n";
+      str = str + "L L" + this.Layers[index].ToString() + "; (CleWin: Layer 0 / 0fe08080 0fe08080);\n";
     for (int index = 0; index < this.MainElement.SubElements.Count; ++index)
       str += this.MainElement.SubElements[index].Write();
     return str + this.MainElement.Write() + this.MainElement.Instanciate() + "E";
@@ -62,7 +62,7 @@ public class CifFile
     {
       Element element1 = new Element();
       int lineIndex = -1;
-label_7:
+
       string line;
       while (true)
       {
@@ -84,22 +84,33 @@ label_7:
               element1.Boxes.Add(box);
               continue;
             case 'C':
-              goto label_15;
+              Element element2 = new Element();
+              element2.ReadInstanciation(line, lineIndex);
+              for (int index = 0; index < this.InstanciatedElements.Count<Element>(); ++index)
+              {
+                if (this.InstanciatedElements[index].Index == element2.Index)
+                {
+                  this.InstanciatedElements[index].Position = element2.Position;
+                  element1.SubElements.Add(this.InstanciatedElements[index]);
+                }
+              }
+              continue;
             case 'D':
               if (line[1] == 'S')
               {
                 element1.ReadDeclaration(line, lineIndex);
                 continue;
               }
-              if (line[1] == 'F')
+              else if (line[1] == 'F')
               {
                 this.InstanciatedElements.Add(element1);
                 element1 = new Element();
                 continue;
               }
-              goto label_9;
+              else return;
             case 'E':
-              goto label_24;
+              this.MainElement = element1.SubElements[0];
+              return;
             case 'R':
               Circle circle = new Circle();
               circle.Read(line, lineIndex);
@@ -111,34 +122,15 @@ label_7:
               element1.Wires.Add(wire);
               continue;
             default:
-              goto label_20;
+              return;
           }
         }
         else
           break;
       }
       return;
-label_20:
-      return;
-label_9:
-      return;
-label_15:
-      Element element2 = new Element();
-      element2.ReadInstanciation(line, lineIndex);
-      for (int index = 0; index < this.InstanciatedElements.Count<Element>(); ++index)
-      {
-        if (this.InstanciatedElements[index].Index == element2.Index)
-        {
-          this.InstanciatedElements[index].Position = element2.Position;
-          element1.SubElements.Add(this.InstanciatedElements[index]);
-        }
-      }
-      goto label_7;
-label_24:
-      this.MainElement = element1.SubElements[0];
     }
   }
-
   public void Draw(Canvas cv) => this.MainElement.Draw(cv);
 }
 

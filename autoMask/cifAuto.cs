@@ -353,14 +353,14 @@ namespace autoMask
     {
       DataTable dataTable = new DataTable();
       dataTable.Columns.Add(new DataColumn("Index", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("Seg 1 L um", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("Seg 2 L um", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("Seg 3 L um", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("Tot L unm", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("Seg 1 W nm", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("Seg 2 W nm", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("Seg 3 W nm", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("Tot R ohm", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("L S1 um", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("L S2 um", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("L S3 um", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("L T unm", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("S1 W nm", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("S2 W nm", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("S3 W nm", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("R T ohm", typeof (string)));
       string str1 = "Index;Length;Length;Points;Points\n;nm;mm;nm;mm\n";
       for (int index = 0; index < el.Wires.Count; ++index)
       {
