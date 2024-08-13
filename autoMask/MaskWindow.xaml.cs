@@ -9,7 +9,6 @@ namespace autoMask
     {
         private List<List<TextBox>> tbs = new List<List<TextBox>>();
         private bool isLoading;
-
         public static List<Chip> Chips = new List<Chip>();
 
         public MaskWindow()
@@ -22,21 +21,24 @@ namespace autoMask
         {
             MaskWindow.Chips.Clear();
             List<string> stringList = new List<string>();
-            using (StreamReader streamReader = new StreamReader(MainWindow.configMaskPath))
+            try
             {
-                string str;
-                while ((str = ((TextReader)streamReader).ReadLine()) != null)
-                    stringList.Add(str);
+                using (StreamReader streamReader = new StreamReader(MainWindow.configMaskPath))
+                {
+                    string str;
+                    while ((str = ((TextReader)streamReader).ReadLine()) != null)
+                        stringList.Add(str);
+                }
+                for (int index = 0; index < stringList.Count; ++index)
+                    MaskWindow.Chips.Add(new Chip(stringList[index]));
+                this.isLoading = true;
+                for (int i = 0; i < MaskWindow.Chips.Count; ++i)
+                {
+                    this.Generate_Tab_Item();
+                    this.UpdateTextBoxes(i);
+                }
+                this.isLoading = false;
             }
-            for (int index = 0; index < stringList.Count; ++index)
-                MaskWindow.Chips.Add(new Chip(stringList[index]));
-            this.isLoading = true;
-            for (int i = 0; i < MaskWindow.Chips.Count; ++i)
-            {
-                this.Generate_Tab_Item();
-                this.UpdateTextBoxes(i);
-            }
-            this.isLoading = false;
         }
 
         private void Generate_File_Click(object sender, RoutedEventArgs e)
