@@ -352,7 +352,7 @@ namespace autoMask
     public static ICollection WireReport(Element el, string savePath)
     {
       DataTable dataTable = new DataTable();
-      dataTable.Columns.Add(new DataColumn("Index", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("Index",  typeof (string)));
       dataTable.Columns.Add(new DataColumn("LS1 um", typeof (string)));
       dataTable.Columns.Add(new DataColumn("WS1 nm", typeof (string)));
       dataTable.Columns.Add(new DataColumn("LS2 um", typeof (string)));
