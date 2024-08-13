@@ -9,138 +9,149 @@ using System.Windows.Shapes;
 
 public class CifFile
 {
-  public string? Author;
-  public List<int>? Layers;
-  public Element MainElement;
-  public string SavePath;
-  private string? data;
-  public List<Element> InstanciatedElements = new List<Element>();
-
-  public string Data
-  {
-    get => (this.data == null) ? this.Write() : this.data;
-    set => this.data = value;
-  }
-
-  public CifFile(string author, List<int> layers, string savePath)
-  {
-    this.Author = author;
-    this.Layers = layers;
-    this.SavePath = savePath;
-    this.MainElement = new Element();
-  }
-
-  public CifFile(string savePath)
-  {
-    this.SavePath = savePath;
-    this.MainElement = new Element();
-  }
-
-  public void Save()
-  {
-    if (this.SavePath == null)
-      throw new Exception("Invalid saving attempt");
-    using (StreamWriter streamWriter = new StreamWriter(this.SavePath))
-      ((TextWriter) streamWriter).Write(this.Data);
-  }
-
-  private string Write()
-  {
-    string str = "";
-    str += (this.Author == null) ? "" : "(CIF written by " + this.Author + ");\n";
-    if (this.Layers == null)
-      throw new Exception("Error: Tried to write file without layers.");
-    str += "(Layer names:);\n";
-    for (int index = 0; index < this.Layers.Count; ++index)
-      str = str + "L L" + this.Layers[index].ToString() + "; (CleWin: Layer 0 / 0fe08080 0fe08080);\n";
-    for (int index = 0; index < this.MainElement.SubElements.Count; ++index)
-      str += this.MainElement.SubElements[index].Write();
-    return str + this.MainElement.Write() + this.MainElement.Instanciate() + "E";
-  }
-
-  public void Read()
-  {
-    
-    using (StreamReader streamReader = new StreamReader(this.SavePath))
-      this.Data = ((TextReader) streamReader).ReadToEnd();
-    using (StringReader stringReader = new StringReader(this.Data))
+    // Properties
+    // ==============================================================
+    public string? Author;
+    public List<int>? Layers;
+    public Element MainElement;
+    public string SavePath;
+    public string Data
     {
-      Element element1 = new Element();
-      int lineIndex = -1;
-
-      string? line;
-      while (true)
-      {
-        line = stringReader.ReadLine();
-        ++lineIndex;
-        if (line != null)
-        {
-          switch (line[0])
-          {
-            case '(':
-            case 'L':
-              continue;
-            case '9':
-              element1.ReadName(line, lineIndex);
-              continue;
-            case 'B':
-              Box box = new Box();
-              box.Read(line, lineIndex);
-              element1.Boxes.Add(box);
-              continue;
-            case 'C':
-              Element element2 = new Element();
-              element2.ReadInstanciation(line, lineIndex);
-              for (int index = 0; index < this.InstanciatedElements.Count<Element>(); ++index)
-              {
-                if (this.InstanciatedElements[index].Index == element2.Index)
-                {
-                  this.InstanciatedElements[index].Position = element2.Position;
-                  element1.SubElements.Add(this.InstanciatedElements[index]);
-                }
-              }
-              continue;
-            case 'D':
-              if (line[1] == 'S')
-              {
-                element1.ReadDeclaration(line, lineIndex);
-                continue;
-              }
-              else if (line[1] == 'F')
-              {
-                this.InstanciatedElements.Add(element1);
-                element1 = new Element();
-                continue;
-              }
-              else return;
-            case 'E':
-              this.MainElement = element1.SubElements[0];
-              return;
-            case 'R':
-              Circle circle = new Circle();
-              circle.Read(line, lineIndex);
-              element1.Circles.Add(circle);
-              continue;
-            case 'W':
-              Wire wire = new Wire();
-              wire.Read(line, lineIndex);
-              element1.Wires.Add(wire);
-              continue;
-            default:
-              return;
-          }
-        }
-        else
-          break;
-      }
-      return;
+        get => (this.data == null) ? this.Write() : this.data;
+        set => this.data = value;
     }
-  }
-  public void Draw(Canvas cv) => this.MainElement.Draw(cv);
-}
+
+    // Private fields used to parse .cif files
+    // ==============================================================
+    private string? data;
+    private List<Element> InstanciatedElements = new List<Element>();
+
+
+    // Constructor
+    // ==============================================================
+    public CifFile(string author, List<int> layers, string savePath)
+    {
+        this.Author = author;
+        this.Layers = layers;
+        this.SavePath = savePath;
+        this.MainElement = new Element();
+    }
+
+    public CifFile(string savePath)
+    {
+        this.SavePath = savePath;
+        this.MainElement = new Element();
+    }
+
+    // Public methods
+    // ==============================================================
+    public void Save()
+    {
+        if (this.SavePath == null)
+        throw new Exception("Invalid saving attempt");
+        using (StreamWriter streamWriter = new StreamWriter(this.SavePath))
+        ((TextWriter) streamWriter).Write(this.Data);
+    }
+
+    private string Write()
+    {
+        string str = "";
+        str += (this.Author == null) ? "" : "(CIF written by " + this.Author + ");\n";
+        if (this.Layers == null)
+        throw new Exception("Error: Tried to write file without layers.");
+        str += "(Layer names:);\n";
+        for (int index = 0; index < this.Layers.Count; ++index)
+        str = str + "L L" + this.Layers[index].ToString() + "; (CleWin: Layer 0 / 0fe08080 0fe08080);\n";
+        for (int index = 0; index < this.MainElement.SubElements.Count; ++index)
+        str += this.MainElement.SubElements[index].Write();
+        return str + this.MainElement.Write() + this.MainElement.Instanciate() + "E";
+    }
+
+    public void Read()
+    {
+        
+        using (StreamReader streamReader = new StreamReader(this.SavePath))
+        this.Data = ((TextReader) streamReader).ReadToEnd();
+        using (StringReader stringReader = new StringReader(this.Data))
+        {
+        Element element1 = new Element();
+        int lineIndex = -1;
+
+        string? line;
+        while (true)
+        {
+            line = stringReader.ReadLine();
+            ++lineIndex;
+            if (line != null)
+            {
+            switch (line[0])
+            {
+                case '(':
+                case 'L':
+                continue;
+                case '9':
+                element1.ReadName(line, lineIndex);
+                continue;
+                case 'B':
+                Box box = new Box();
+                box.Read(line, lineIndex);
+                element1.Boxes.Add(box);
+                continue;
+                case 'C':
+                Element element2 = new Element();
+                element2.ReadInstanciation(line, lineIndex);
+                for (int index = 0; index < this.InstanciatedElements.Count<Element>(); ++index)
+                {
+                    if (this.InstanciatedElements[index].Index == element2.Index)
+                    {
+                    this.InstanciatedElements[index].Position = element2.Position;
+                    element1.SubElements.Add(this.InstanciatedElements[index]);
+                    }
+                }
+                continue;
+                case 'D':
+                if (line[1] == 'S')
+                {
+                    element1.ReadDeclaration(line, lineIndex);
+                    continue;
+                }
+                else if (line[1] == 'F')
+                {
+                    this.InstanciatedElements.Add(element1);
+                    element1 = new Element();
+                    continue;
+                }
+                else return;
+                case 'E':
+                this.MainElement = element1.SubElements[0];
+                return;
+                case 'R':
+                Circle circle = new Circle();
+                circle.Read(line, lineIndex);
+                element1.Circles.Add(circle);
+                continue;
+                case 'W':
+                Wire wire = new Wire();
+                wire.Read(line, lineIndex);
+                element1.Wires.Add(wire);
+                continue;
+                default:
+                return;
+            }
+            }
+            else
+            break;
+        }
+        return;
+        }
+    }
+    public void Draw(Canvas cv) => this.MainElement.Draw(cv);
+    }
 
 public class Element
 {
+    // Properties
+    // ==============================================================
     public int Index;
     public string? Name;
     public int Layer;
@@ -151,8 +162,12 @@ public class Element
     public Vector2 Position;
     public Canvas? Cv;
 
+    // Private fields
+    // ==============================================================
     private string nameMod => this.Name == null ? "" : this.Name.Replace(' ', '~');
 
+    // Constructor
+    // ==============================================================
     public Element(
       int index,
       string name,
@@ -196,6 +211,8 @@ public class Element
         this.Wires = new List<Wire>();
     }
 
+    // Public methods
+    // ==============================================================
     public string Write()
     {
         string str = "DS " + this.Index.ToString() + " 1 10;\n9 " + this.nameMod + ";\nL L" + this.Layer.ToString() + ";\n";
@@ -352,9 +369,13 @@ public class Element
 
 public class Circle
 {
+    // Properties
+    // ==============================================================
     public Vector2 Center;
     public int D;
 
+    // Constructor
+    // ==============================================================
     public Circle(Vector2 center, int d)
     {
         this.Center = center;
@@ -365,6 +386,8 @@ public class Circle
     {
     }
 
+    // Public methods
+    // ==============================================================
     public void Read(string line, int lineIndex)
     {
         try
@@ -408,10 +431,14 @@ public class Circle
 
 public class Box
 {
+    // Properties
+    // ==============================================================
     public Vector2 Center;
     public int B;
     public int H;
 
+    // Constructor
+    // ==============================================================
     public Box(Vector2 center, int b, int h)
     {
         this.Center = center;
@@ -423,6 +450,8 @@ public class Box
     {
     }
 
+    // Public methods
+    // ==============================================================
     public string Write()
     {
         int num1 = auxFun.round((int)this.Center.X);
@@ -469,6 +498,8 @@ public class Box
 
 public class Wire
 {
+    // Properties
+    // ==============================================================
     public List<Vector2> Points;
     public List<int> Widths;
     public int Length
@@ -484,6 +515,8 @@ public class Wire
         get => ComputeLengths();
     }
 
+    // Constructor
+    // ==============================================================
     public Wire(List<Vector2> points, List<int> w)
     {
         this.Points = points;
@@ -520,6 +553,8 @@ public class Wire
         return str1;
     }
 
+    // Public methods
+    // ==============================================================
     public void Read(string line, int lineIndex)
     {
         try
@@ -562,6 +597,8 @@ public class Wire
         }
     }
 
+    // Private methods
+    // ==============================================================
     private List<int> ComputeLengths()
     {
         List <int> lengths = new List<int>();

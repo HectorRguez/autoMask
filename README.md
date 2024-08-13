@@ -73,6 +73,7 @@ The most important class of the project is the cifFile. It handles all the *.cif
 - This file format uses modules which will be referred to as **elements** to avoid repetition. Elements are declared as belonging to a specific layer, with a name, an index and their contents. Then, this element can be instantiated on any desired position as many times as needed throughout the file.
 
 <div align="center">
-    <img src="https://github.com/hector/autoMask/main/docs/cif_file_structure.png" width="600">
+    <img src="https://github.com/hector/autoMask/main/docs/cif_file_structure.png" width="400">
 </div>
+
 
