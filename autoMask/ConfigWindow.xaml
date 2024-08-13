@@ -22,11 +22,7 @@
                 C:\\Users\\hecto\\source\\repos\\autoMask\\autoMask\\report.csv
             </TextBox>
         </DockPanel>
-        <Separator/>
-       
-       
-        
-        <Separator/>
+        <Separator/><Separator/>
         <DockPanel>
             <Label VerticalAlignment="Center">Metal Conductivity</Label>
             <ComboBox x:Name="MaterialSelector" DockPanel.Dock="Right" Margin="5" Width="100" HorizontalAlignment="Right"
@@ -40,7 +36,7 @@
                HorizontalAlignment="Right" Width="30" Margin="5" TextAlignment="Right" VerticalAlignment="Center">65</TextBox>
         </DockPanel>
         <DockPanel>
-            <Label VerticalAlignment="Center" DockPanel.Dock="Left">Sputtering Height</Label>
+            <Label VerticalAlignment="Center" DockPanel.Dock="Left">Deposition Height</Label>
             <Label Margin="5" DockPanel.Dock="Right">nm</Label>
             <TextBox TextChanged="Value_Changed" x:Name="HeightContainer" Width="30" HorizontalAlignment="Right"
                TextAlignment="Right" VerticalAlignment="Center">21</TextBox>
@@ -58,6 +54,7 @@
             <CheckBox Click="Value_Changed" x:Name="eqWires" DockPanel.Dock="Right" HorizontalAlignment="Right"
                 Margin="8,5" VerticalAlignment="Center"/>
         </DockPanel>
+        <Separator/>
         <DockPanel>
             <Label VerticalAlignment="Center" DockPanel.Dock="Left">
                 View Microfluidic Chambers
