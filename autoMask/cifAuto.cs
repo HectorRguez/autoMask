@@ -7,6 +7,7 @@ namespace autoMask
 {
   internal static class CifAuto
   {
+    // Add the electrode circles to the element according to the chip properties
     public static void Electrodes(Element el, Chip ma)
     {
       int num1 = (ma.ELECTRODE_N - 1) * ma.ELECTRODE_DISTANCE;
@@ -21,6 +22,7 @@ namespace autoMask
       }
     }
 
+    // Add the pads on the right and left sides to the element according to the chip properties
     public static void Pads2sides(Element el, Chip ma)
     {
       int num = Chip.PADS_HEIGHT / (ma.N_PADS_SIDE - 1 + 2);
@@ -36,6 +38,7 @@ namespace autoMask
       }
     }
 
+    // Add the variable width wires to the element according to the chip properties
     public static void VariableWires(Element el, Chip ma, bool eqWire)
     {
       List<Circle> circleList = new List<Circle>();
@@ -129,6 +132,7 @@ namespace autoMask
       }
     }
 
+    // Add constant length wires to the element according to the chip properties
     public static void Wires(Element el, Chip ma)
     {
       List<Circle> circleList = new List<Circle>();
@@ -201,6 +205,7 @@ namespace autoMask
       }
     }
 
+    // Add squares on the corners of the element according to the chip elements
     public static void Squares(Element el, Chip ma)
     {
       el.Wires.Add(new Wire()
@@ -257,6 +262,7 @@ namespace autoMask
       });
     }
 
+    // Add an element to the mask and place it according to its chip index
     public static void ElementPlace(CifFile ci, List<Element> els, Chip ma)
     {
       int num = -(ma.CHIP_WIDTH * els.Count<Element>()) / 2 + ma.CHIP_WIDTH / 2;
@@ -267,6 +273,7 @@ namespace autoMask
       }
     }
 
+    // Add the ground reference connection and pads
     public static void GroundReference(Element el, Chip ma)
     {
       int num1 = 4 * el.Wires[0].Widths[1];
@@ -349,6 +356,7 @@ namespace autoMask
       el.Wires.Add(wire4);
     }
 
+    // Return a wire report table and export the contents to a file
     public static ICollection WireReport(Element el, string savePath)
     {
       DataTable dataTable = new DataTable();
@@ -366,7 +374,7 @@ namespace autoMask
 
       // .csv column headers
       string fileContents = "Index;LS1;WS1;LS2;WS2;LS3;WS3;LS4;WS4;LT;RT\n";
-      fileContents += ";um;nm;um;nm;um;nm;um;nm;um;ohm;\n"
+      fileContents += ";um;nm;um;nm;um;nm;um;nm;um;ohm;\n";
 
       // Find the wire with the longest number of segments
       int maxSegments = el.Wires[0].Lengths.Count;

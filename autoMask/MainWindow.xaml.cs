@@ -10,16 +10,19 @@ namespace autoMask
     public partial class MainWindow : Window
     {
         // Default configuraion
-        public static string maskSavePath = AppDomain.CurrentDomain.BaseDirectory + "\\auto_mask.cif";
-        public static string maskOpenPath = AppDomain.CurrentDomain.BaseDirectory;
-        public static string wireReportPath = AppDomain.CurrentDomain.BaseDirectory;
-        public static string configMaskPath = AppDomain.CurrentDomain.BaseDirectory + "\\config_mask.csv";
+        // ==============================================================================
+        private string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        public static string maskSavePath = baseDirectory + "\\auto_mask.cif";
+        public static string maskOpenPath = baseDirectory;
+        public static string wireReportPath = baseDirectory;
+        public static string configMaskPath = baseDirectory + "\\config_mask.csv";
         public static bool viewChamber = false;
         public static bool optWire = true;
         public static bool eqWire = true;
         public static int sputteringHeight = ConfigWindow.SPUTTERING_HEIGHT_NM;
         public static int sputteringMaterial = ConfigWindow.GOLD_CONDUCTANCE_S;
         private string Author = "Hector Rodriguez Rodriguez TFM - UPM - CEI";
+        
 
         public CifFile file;
         private Canvas cv;
