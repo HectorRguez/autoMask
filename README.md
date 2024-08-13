@@ -1,5 +1,5 @@
 # autoMask
-This repository provides an automatic tool to design photolithography masks in a *.cif* format for the fabrication of Microelectrode Arrays (MEAs). Furthermore, it provides a complete lightweight framework for *.cif* file visualization and generation.
+This repository provides an automatic tool to design photolithography masks in a *.cif* format for the fabrication of Microelectrode Arrays (MEAs). Furthermore, it provides a complete framework for *.cif* file visualization and generation.
 
 <div align="center">
     <img src="https://github.com/hector/autoMask/main/docs/mask_example.png" width="400">
@@ -9,6 +9,7 @@ This repository provides an automatic tool to design photolithography masks in a
 - [Getting started](#getting-started)
 - [How to contribute](#how-to-contribute)
 - [Project structure](#project-structure)
+- [The cifFile class](#the-cif-file-class)
 
 
 ## Getting started
@@ -43,9 +44,9 @@ Follow the following steps to contribute or make modifications to the program so
 ## Project structure
 <pre>
 ├── autoMask
-│   ├── App.xaml                # [DEFAULT] Common to every WPF app
-│   ├── App.xaml.cs             # [DEFAULT] Common to every WPF app
-│   ├── AssemblyInfo.cs         # [DEFAULT] Common to every WPF app
+│   ├── App.xaml                # [DEFAULT] Common for every WPF app
+│   ├── App.xaml.cs             # [DEFAULT] Common for every WPF app
+│   ├── AssemblyInfo.cs         # [DEFAULT] Common for every WPF app
 │   ├── autoMask.csproj         # Project
 │   ├── AuxFun.cs               # Class that contains auxiliary functions
 │   ├── Chip.cs                 # Class used to configure the generation parameters.
@@ -60,6 +61,18 @@ Follow the following steps to contribute or make modifications to the program so
 │   └── ZoomBorder.cs           # Class used to implement the pan and zoom function
 ├── autoMask.sln                # Project solution
 ├── docs                        # Documentation figures
-├── LICENCE
+├── LICENSE
 └── README.md
 </pre>
+
+## The cifFile class
+The most important class of the project is the cifFile. It handles all the *.cif* file readings, modifications, new file generation and storage. This standard includes:
+- Although there is no standard **header**, software such as Clewin usually incorporates information regarding the author of the mask. 
+- **Layer declaration**: Each layer is defined with a number. Furthermore, the comment placed in the same line is used by Clewin to select the color of the specific layer.
+- The content of the mask is composed of three major shapes: **Circles**, **Boxes** and **Wires**.
+- This file format uses modules which will be referred to as **elements** to avoid repetition. Elements are declared as belonging to a specific layer, with a name, an index and their contents. Then, this element can be instantiated on any desired position as many times as needed throughout the file.
+
+<div align="center">
+    <img src="https://github.com/hector/autoMask/main/docs/cif_file_structure.png" width="600">
+</div>
+
