@@ -403,7 +403,7 @@ namespace autoMask
                 else{
                   fileContents += ";;";
                 }
-                columnParameter += 2;
+                indexColumn += 2;
               }
 
               // Wire total length and resistance
@@ -411,14 +411,14 @@ namespace autoMask
               int totalResistance = (int)el.Wires[indexWire].Resistance;
               dataRow[indexColumn] = totalLength.ToString();
               dataRow[indexColumn+1] = totalResistance.ToString();
-              fileContents += totalLength.ToString() + ";" + totalResistance.ToString() + ";n";
+              fileContents += totalLength.ToString() + ";" + totalResistance.ToString() + ";\n";
 
               dataTable.Rows.Add(dataRow);
           }
       }
       using (StreamWriter streamWriter = new StreamWriter(savePath))
-        ((TextWriter) streamWriter).Write(str1);
+          ((TextWriter) streamWriter).Write(fileContents);
       return (ICollection) new DataView(dataTable);
+      }
     }
-  }
 }

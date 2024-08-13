@@ -30,7 +30,7 @@ Multiple designs, which will also be called *chips*, can fit in a single silicon
     - If **Equilibrate resistances** is enabled, the width furthest segment will be adjusted to ensure that the track of every electrode has the same resistance. This implies that the pads that are placed closer to the MEA will have thinner wiring.
 4. Once a file has been read or generated, the right side of the screen will display relevant information.
     - The first tab contains the **contents** of the generated file in plain text.
-    - The following tabs display the **wire characteristics** of every generated chip that conforms the mask design. The first columns contain information regarding the **length** of each segment. The following ones indicate the  track **widths**, and finally, an estimation of the **resistance** using the aforementioned parameters.
+    - The following tabs display the **wire characteristics** of every generated chip that conforms the mask design. It contains information regarding the **length** and **width** of each segment, as well as the total length and an estimation of the **resistance** using the aforementioned expression.
 
 ## How to contribute
 Follow the following steps to contribute or make modifications to the program source code. 
