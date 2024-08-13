@@ -4,23 +4,29 @@
   {
     // Properties
     // ==============================================================
+    
+    // Fixed parameters
     public static int MAX_PAD_SIZE = 2000000;
     public static int PADS_BASE = 27000000;
     public static int PADS_HEIGHT = 75000000;
     public static int SQUARE_BASE = 29000000;
     public static int SQUARE_HEIGHT_A = 39740000;
     public static int SQUARE_HEIGHT_B = 42660000;
-    public int ELECTRODE_N;
-    public int ELECTRODE_DISTANCE;
-    public int ELECTRODE_DIAMETER;
-    private int pad_l;
     public int WIRE_MIN_WIDTH = 5000;
     public int WIRE_CORNER = 100000;
     public int SQUARE_WIDTH = 100000;
     public int SQUARE_L = 500000;
-    public int CHIP_MARGIN;
     public int REF_SEPARATION = 17000000;
+
+    // Configurable parameters
+    public int ELECTRODE_N;
     public int N_PADS_SIDE => this.ELECTRODE_N;
+    public int ELECTRODE_DISTANCE;
+    public int ELECTRODE_DIAMETER;
+    public int CHIP_MARGIN;
+    public int CHIP_WIDTH => Chip.SQUARE_BASE + this.SQUARE_WIDTH + this.CHIP_MARGIN;
+    
+    private int pad_l;
     public int PAD_L
     {
       get
@@ -34,9 +40,8 @@
       }
       set => this.pad_l = value;
     }
-    public int CHIP_WIDTH => Chip.SQUARE_BASE + this.SQUARE_WIDTH + this.CHIP_MARGIN;
     public int REF_H => this.PAD_L;
-
+    
     // Constructor
     // ==============================================================
     public Chip(
