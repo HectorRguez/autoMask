@@ -2,6 +2,8 @@
 {
   public class Chip
   {
+    // Properties
+    // ==============================================================
     public static int MAX_PAD_SIZE = 2000000;
     public static int PADS_BASE = 27000000;
     public static int PADS_HEIGHT = 75000000;
@@ -18,9 +20,7 @@
     public int SQUARE_L = 500000;
     public int CHIP_MARGIN;
     public int REF_SEPARATION = 17000000;
-
     public int N_PADS_SIDE => this.ELECTRODE_N;
-
     public int PAD_L
     {
       get
@@ -34,11 +34,11 @@
       }
       set => this.pad_l = value;
     }
-
     public int CHIP_WIDTH => Chip.SQUARE_BASE + this.SQUARE_WIDTH + this.CHIP_MARGIN;
-
     public int REF_H => this.PAD_L;
 
+    // Constructor
+    // ==============================================================
     public Chip(
       int eLECTRODE_N,
       int eLECTRODE_DISTANCE,
@@ -85,6 +85,8 @@
     {
     }
 
+    // Public methods
+    // ==============================================================
     public string csvLine()
     {
       return this.ELECTRODE_N.ToString() + ";" + this.ELECTRODE_DISTANCE.ToString() + ";" + 
