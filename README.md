@@ -9,13 +9,18 @@ This repository provides an automatic tool to design photolithography masks in a
 - [Getting started](#getting-started)
 - [How to contribute](#how-to-contribute)
 - [Project structure](#project-structure)
-- [HW Architecture](#hw-architecture)
+
 
 ## Getting started
 1. Download the latest release on the release section.
 2. **Execute** the *.exe* file to run the program. 
 1. The button **Read File** can be used to visualize photolithography masks. A *.cif* mask example is contained in the *docs* folder.
-2. The button **Generate File** opens a pop-up window that can be used to indicate the configurable mask parameters. The **+** and **-** can be used to introduce new masks or eliminate existing ones. Finally, before generating a new mask with **Generate**, the configuration can be stored in a *.csv* file for future executions by pressing **Save masks**. An example mask configuration is included in the release, inside the file *config_mask.csv*.
+2. The button **Generate File** opens a pop-up window that can be used to indicate the configurable mask parameters. The **+** and **-** can be used to introduce new masks or eliminate existing ones. Finally, before generating a new mask with **Generate**, the configuration can be stored in a *.csv* file for future executions by pressing **Save masks**. An example mask configuration is included in the release, inside the file *config_mask.csv*. The following parameters can be configured:
+
+<div align="center">
+    <img src="https://github.com/hector/autoMask/main/docs/mask_parameters.png" width="600">
+</div>
+
 3. Finally, **Configuration** opens the configuration window, that includes: 
     - Selection of the **paths** where the generated masks and a report containing the physical characteristics of every wire will be stored. 
     - **Deposition height and material**, which will be used to compute the estimated resistance.
