@@ -1,6 +1,10 @@
 # autoMask
 This repository provides an automatic tool to design photolithography masks in a *.cif* format for the fabrication of Microelectrode Arrays (MEAs). Furthermore, it provides a complete framework for *.cif* file visualization and generation.
 
+Optimizing MEA design involves a thorough design space exploration. The large number of parameters requires multiple iterations of the designs and fabrication processes. The goal of this project is to facilitate this process by **automating the design step**. MEAs are repetitive and, usually, symmetrical. Thus, providing designs after selecting a few distances results in excellent time savings.
+
+Multiple designs, which will also be called *chips*, can fit in a single silicon wafer. However, this can dramatically increase the number of polygons that compose each mask. The already available mask design solutions, such as [CleWin 4.0]() are unable to handle this increased complexity, especially when visualizing the complete mask. This software cashes the corresponding vectorial image to visualize the masks without requiring large amounts of resources. The goal is to be able to provide a complete picture of the to be manufactured mask, which can be zoomed in or out and panned in a responsive manner.  
+
 <div align="center">
     <img src="https://github.com/hector/autoMask/main/docs/mask_example.png" width="400">
 </div>
@@ -16,7 +20,9 @@ This repository provides an automatic tool to design photolithography masks in a
 1. Download the latest release on the release section.
 2. **Execute** the *.exe* file to run the program. 
 1. The button **Read File** can be used to visualize photolithography masks. A *.cif* mask example is contained in the *docs* folder.
-2. The button **Generate File** opens a pop-up window that can be used to indicate the configurable mask parameters. The **+** and **-** can be used to introduce new masks or eliminate existing ones. Finally, before generating a new mask with **Generate**, the configuration can be stored in a *.csv* file for future executions by pressing **Save masks**. An example mask configuration is included in the release, inside the file *config_mask.csv*. The following parameters can be configured:
+2. The button **Generate File** opens a pop-up window that can be used to indicate the configurable mask parameters. The **+** and **-** can be used to introduce new masks or eliminate existing ones. Finally, before generating a new mask with **Generate**, the configuration can be stored in a *.csv* file for future executions by pressing **Save masks**. An example mask configuration is included in the release, inside the file *config_mask.csv*. 
+
+The parameters shown on this image fully represent the characteristics of each generated chip:
 
 <div align="center">
     <img src="https://github.com/hector/autoMask/main/docs/mask_parameters.png" width="600">
@@ -67,8 +73,8 @@ Follow the following steps to contribute or make modifications to the program so
 
 ## The cifFile class
 The most important class of the project is the cifFile. It handles all the *.cif* file readings, modifications, new file generation and storage. This standard includes:
-- Although there is no standard **header**, software such as Clewin usually incorporates information regarding the author of the mask. 
-- **Layer declaration**: Each layer is defined with a number. Furthermore, the comment placed in the same line is used by Clewin to select the color of the specific layer.
+- Although there is no standard **header**, software such as CleWin usually incorporates information regarding the author of the mask. 
+- **Layer declaration**: Each layer is defined with a number. Furthermore, the comment placed in the same line is used by CleWin to select the color of the specific layer.
 - The content of the mask is composed of three major shapes: **Circles**, **Boxes** and **Wires**.
 - This file format uses modules which will be referred to as **elements** to avoid repetition. Elements are declared as belonging to a specific layer, with a name, an index and their contents. Then, this element can be instantiated on any desired position as many times as needed throughout the file.
 
