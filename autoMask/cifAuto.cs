@@ -353,78 +353,69 @@ namespace autoMask
     {
       DataTable dataTable = new DataTable();
       dataTable.Columns.Add(new DataColumn("Index", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("L S1 um", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("L S2 um", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("L S3 um", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("L T unm", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("S1 W nm", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("S2 W nm", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("S3 W nm", typeof (string)));
-      dataTable.Columns.Add(new DataColumn("R T ohm", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("LS1 um", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("WS1 nm", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("LS2 um", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("WS2 nm", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("LS3 um", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("WS3 nm", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("LS4 um", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("WS4 nm", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("LT  um", typeof (string)));
+      dataTable.Columns.Add(new DataColumn("RT ohm", typeof (string)));
 
-      // .csv columnt headers
-      string fileContents = "Index;Length;Length;Points;Points\n;nm;mm;nm;mm\n";
+      // .csv column headers
+      string fileContents = "Index;LS1;WS1;LS2;WS2;LS3;WS3;LS4;WS4;LT;RT\n";
+      fileContents += ";um;nm;um;nm;um;nm;um;nm;um;ohm;\n"
 
-            for (int index = 0; index < el.Wires.Count; ++index)
-            {
-                if (el.Wires[index].Lengths != null)
-                {
-                    DataRow dataRow = dataTable.NewRow();
+      // Find the wire with the longest number of segments
+      int maxSegments = el.Wires[0].Lengths.Count;
+      for(int indexWire = 1; indexWire < el.Wires.Count; indexWire++){
+        if(el.Wires[indexWire].Lengths.Count > maxSegments){
+          maxSegments = el.Wires[indexWire].Lengths.Count:
+        }
+      }
 
-                    // Wire index
-                    dataRow[0] = (object)index.ToString();
-                    fileContents += index.ToString() + ";";
+      for(int indexWire = 0; indexWire < el.Wires.Count; indexWire++)
+      {
+          if(el.Wires[indexWire].Lengths != null)
+          {
+              DataRow dataRow = dataTable.NewRow();
+              
+              // Wire indexWire
+              dataRow[0] = (object)indexWire.ToString();
+              fileContents += indexWire.ToString() + ";";
 
-                    // First segment length
-                    int num = el.Wires[index].Lengths[0] / 1000;
-                    dataRow[1] = (object)num.ToString();
-                    fileContents += num.ToString() + ";";
-
-                    // First segment width
-                    num = el.Wires[index].Widths[0];
-                    dataRow[5] = (object)num.ToString();
-                    fileContents += num.ToString() + ";";
-
-                    if (el.Wires[index].Lengths.Count > 1)
-                    {
-                        // Second segment length
-                        num = el.Wires[index].Lengths[1] / 1000;
-                        dataRow[2] = (object)num.ToString();
-                        fileContents += num.ToString() + ";";
-
-                        // Second segment width
-                        num = el.Wires[index].Widths[1];
-                        dataRow[6] = (object)num.ToString();
-                        fileContents += num.ToString() + ";";
-                    }
-                    else
-                        fileContents += ";;"
-                    if (el.Wires[index].Lengths.Count > 3)
-                    {
-                        // Fourth segment length
-                        num = el.Wires[index].Lengths[3] / 1000;
-                        dataRow[3] = (object)str12;
-                        fileContents += num.ToString();
-
-                        // Fourth segment width
-                        num = el.Wires[index].Widths[3];
-                        dataRow[7] = (object)num.ToString();
-                        fileContents += num.ToString() + ";";
-                    }
-
-                    // Total length
-                    num = el.Wires[index].Length / 1000;
-                    dataRow[4] = (object)num.ToString();
-                    fileContents += num.ToString() + ";";
-
-                    // Total resistance
-                    num = (int)el.Wires[index].Resistance;
-                    dataRow[8] = (object)num.ToString();
-                    fileContents += num.ToString() + ";" + "\n";
-
-                    dataTable.Rows.Add(dataRow);
+              // Wire segments
+              int indexColumn = 1;
+              for(int indexParameter = 0; indexParameter < maxSegments){
+                if(indexParameter < el.Wires[indexWire].Lengths.Count){
+                  // Fetch segment length and width
+                  int length = el.Wires[indexWire].Lengths[indexParameter] / 1000;
+                  int width = el.Wires[indexWire].Widths[indexParameter];
+                  // Write columns for the tab control
+                  dataRow[indexColumn] = length.ToString();
+                  dataRow[indexColumn+1] = width.ToString();
+                  // Write columns for the wire report
+                  fileContents += length.ToString() + ";" + width.ToString() + ";";
+                  indexParameter++;
                 }
-            }
+                else{
+                  fileContents += ";;";
+                }
+                columnParameter += 2;
+              }
+
+              // Wire total length and resistance
+              int totalLength = el.Wires[indexWire].Length / 1000;
+              int totalResistance = (int)el.Wires[indexWire].Resistance;
+              dataRow[indexColumn] = totalLength.ToString();
+              dataRow[indexColumn+1] = totalResistance.ToString();
+              fileContents += totalLength.ToString() + ";" + totalResistance.ToString() + ";n";
+
+              dataTable.Rows.Add(dataRow);
+          }
+      }
       using (StreamWriter streamWriter = new StreamWriter(savePath))
         ((TextWriter) streamWriter).Write(str1);
       return (ICollection) new DataView(dataTable);

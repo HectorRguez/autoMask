@@ -12,7 +12,7 @@ namespace autoMask
         // Default configuraion
         public static string maskSavePath = AppDomain.CurrentDomain.BaseDirectory + "\\auto_mask.cif";
         public static string maskOpenPath = AppDomain.CurrentDomain.BaseDirectory;
-        public static string wireReportPath = AppDomain.CurrentDomain.BaseDirectory + "\\wire_report.csv";
+        public static string wireReportPath = AppDomain.CurrentDomain.BaseDirectory;
         public static string configMaskPath = AppDomain.CurrentDomain.BaseDirectory + "\\config_mask.csv";
         public static bool viewChamber = false;
         public static bool optWire = true;
@@ -75,7 +75,8 @@ namespace autoMask
                 newItem2.BorderThickness = new Thickness(2.0);
                 DataGrid dataGrid = new DataGrid();
                 dataGrid.AutoGenerateColumns = true;
-                dataGrid.ItemsSource = (IEnumerable)CifAuto.WireReport(this.file.MainElement.SubElements[index], MainWindow.wireReportPath);
+                string wireReportN = MainWindow.wireReportPath + "\\wire_report_" + index.ToString() + ".csv"; 
+                dataGrid.ItemsSource = (IEnumerable)CifAuto.WireReport(this.file.MainElement.SubElements[index], wireReportN);
                 newItem2.Content = (object)dataGrid;
                 this.wireReports.Items.Add((object)newItem2);
             }
