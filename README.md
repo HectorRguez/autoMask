@@ -25,7 +25,9 @@ Multiple designs, which will also be called *chips*, can fit in a single silicon
 3. Finally, **Configuration** opens the configuration window, that includes: 
     - Selection of the **paths** where the generated masks and a report containing the physical characteristics of every wire will be stored. 
     - **Deposition height and material**, which will be used to compute the estimated resistance.
+
     $$R[\Omega] = \frac{L[\text{m}]}{A[\text{m}^2]} \cdot \sigma[\frac{\text{S}}{m}]$$
+
     - The wire width of the segment that is closer to the electrodes has a fixed width. However, the next two widths can be adjusted to minimize the resistance of the electrodes that are placed the furthest away from the interconnection pads. The function **Optimize wire width** generates multiple masks to determine the optimal solution.
     - If **Equilibrate resistances** is enabled, the width furthest segment will be adjusted to ensure that the track of every electrode has the same resistance. This implies that the pads that are placed closer to the MEA will have thinner wiring.
 4. Once a file has been read or generated, the right side of the screen will display relevant information.
@@ -76,40 +78,37 @@ The parameters shown on this image fully represent the characteristics of each g
 The values that define the general structure of the system are set up as constants in the *Chip.cs* file. The configurable parameters can be set up differently for each chip in the **Generate Mask window** [^2].
 
 [^2] the Pad Length parameter can be calculated automatically to maximize the covered area if it is set as 0. However, if some other value is introduced it will overwrite this calculation, up to the a maximum pad length of 2 mm.
-``` 
-Parameter                 [um]
-------------------------------
-Maximum pad length        2000
-Pad base                  2700
-Pad height                7500
-Square base               2900
-Square height A           3974
-Square height B           4266
-Wire minimum width           5
-Wire corner length         100
-Square width               100
-Square length              500
-Reference separation      1700
-Electrode number        CONFIG
-Electrode distance      CONFIG
-Electrode diameter      CONFIG
-Wire minimum width      CONFIG
-Pad length              CONFIG
-------------------------------
-```
+
+
+| Parameter              |   [um] |
+|------------------------|------: |
+| Maximum pad length     |   2000 |
+| Pad base               |   27000 |
+| Pad height             |   75000 |
+| Square base            |   29000 |
+| Square height A        |   39740 |
+| Square height B        |   42660 |
+| Wire minimum width     |      5 |
+| Wire corner length     |    100 |
+| Square width           |    100 |
+| Square length          |    500 |
+| Reference separation   |   17000 |
+| Electrode number       | CONFIG |
+| Electrode distance     | CONFIG |
+| Electrode diameter     | CONFIG |
+| Wire minimum width     | CONFIG |
+| Pad length             | CONFIG |
+
 
 An example configuration file with four chips, designed to fit in a 6 inch wafer is provided in *config_mask.csv*. The first image of this file contains a chip that has the same parameters as Chip #4.
 
-```
-Parameter              Chip #1         Chip #2        Chip #3         Chip #4
------------------------------------------------------------------------------
-Electrode number           10              20              40              80  
-Electrode distance         10              10              10              10  
-Electrode diameter          5               5               5               5   
-Pad length               2000            2000            2000            2000
-Wire minimum width          5               5               5               5   
------------------------------------------------------------------------------
-```
+|Parameter            |  Chip #1     |    Chip #2    |    Chip #3     |    Chip #4|
+|:--------------------|-------------:|--------------:|---------------:|----------:|
+|Electrode number     |      10      |        20     |         40     |         80|  
+|Electrode distance   |      10      |        10     |         10     |         10|  
+|Electrode diameter   |       5      |         5     |          5     |          5|   
+|Pad length           |    2000      |      2000     |       2000     |       2000|
+|Wire minimum width   |       5      |         5     |          5     |          5|   
 
 ## cifFile class
 The most important class of the project is the cifFile. It handles all the *.cif* file readings, modifications, new file generation and storage. This standard includes:
