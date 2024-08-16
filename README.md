@@ -6,7 +6,7 @@ Optimizing MEA design involves a thorough design space exploration. The large nu
 Multiple designs, which will also be called *chips*, can fit in a single silicon wafer. However, this can dramatically increase the number of polygons that compose each mask. The already available mask design solutions, such as [CleWin 4.0]() are unable to handle this increased complexity, especially when visualizing the complete mask. This software cashes the corresponding vectorial image to visualize the masks without requiring large amounts of resources. The goal is to be able to provide a complete picture of the to be manufactured mask, which can be zoomed in or out and panned in a responsive manner.  
 
 <div align="center">
-    <img src="https://github.com/hector/autoMask/main/docs/mask_example.png" width="400">
+    <img src="https://github.com/HectorRguez/autoMask/tree/master/docs/mask_example.png" width="400">
 </div>
 
 ## Table of contents
@@ -69,7 +69,7 @@ Follow the following steps to contribute or make modifications to the program so
 The parameters shown on this image fully represent the characteristics of each generated chip:
 
 <div align="center">
-    <img src="https://github.com/hector/autoMask/main/docs/mask_parameters.png" width="600">
+    <img src="https://github.com/HectorRguez/autoMask/tree/master/docs/mask_parameters.png" width="600">
 </div>
 
 
@@ -119,6 +119,6 @@ The most important class of the project is the cifFile. It handles all the *.cif
 - This file format uses modules which will be referred to as **elements** to avoid repetition. Elements are declared as belonging to a specific layer, with a name, an index and their contents. Then, this element can be instantiated on any desired position as many times as needed throughout the file.
 
 <div align="center">
-    <img src="https://github.com/hector/autoMask/main/docs/cif_file_structure.png" width="400">
+    <img src="https://github.com/HectorRguez/autoMask/tree/master/docs/cif_file_structure.png" width="400">
 </div>
 
