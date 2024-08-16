@@ -12,10 +12,9 @@ Multiple designs, which will also be called *chips*, can fit in a single silicon
 ## Table of contents
 - [Getting started](#getting-started)
 - [How to contribute](#how-to-contribute)
-- [Project structure](#project-structure)
 - [Configuration parameters](#configuration-parameters)
 - [cifFile class](#cif-file-class)
-
+- [Project structure](#project-structure)
 
 ## Getting started
 1. Download the latest release on the release section.
@@ -37,11 +36,66 @@ Multiple designs, which will also be called *chips*, can fit in a single silicon
 ## How to contribute
 Follow the following steps to contribute or make modifications to the program source code. 
 1. Download the **IDE**. This project has been created in [Visual Studio Community 2022](https://visualstudio.microsoft.com/). It uses [Windows Presentation Foundation .NET Version 8.0](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/overview/?view=netdesktop-8.0)
-2. Clone the repository: ```git clone https://github.com/hector/autoMask/```
+2. Clone the repository: `git clone https://github.com/HectorRguez/autoMask/`
 3. Open the project's solution with the recommended IDE. The solution file has the  *.sln* extension.
 4. Compile and run the project. [^1]
 
-[^1] To load the example mask configuration, the *mask_config.csv* file should be copied inside the compiled project directory, which should be inside the *bin/Debug* folder.
+[^1]: To load the example mask configuration, the *mask_config.csv* file should be copied inside the compiled project directory, which should be inside the *bin/Debug* folder.
+
+
+## Configuration parameters
+The parameters shown on this image fully represent the characteristics of each generated chip:
+
+<div align="center">
+    <img src="https://github.com/HectorRguez/autoMask/blob/master/docs/mask_parameters.png" width="600">
+</div>
+
+
+The values that define the general structure of the system are set up as constants in the *Chip.cs* file. The configurable parameters can be set up differently for each chip in the **Generate Mask window** [^2].
+
+[^2]: the Pad Length parameter can be calculated automatically to maximize the covered area if it is set as 0. However, if some other value is introduced it will overwrite this calculation, up to the a maximum pad length of 2 mm.
+
+
+| Parameter              |   [um]  |
+|------------------------|------:  |
+| Maximum pad length     |   2000  |
+| Pad base               |   27000 |
+| Pad height             |   75000 |
+| Square base            |   29000 |
+| Square height A        |   39740 |
+| Square height B        |   42660 |
+| Wire minimum width     |      5  |
+| Wire corner length     |    100  |
+| Square width           |    100  |
+| Square length          |    500  |
+| Reference separation   |   17000 |
+| Electrode number       | CONFIG  |
+| Electrode distance     | CONFIG  |
+| Electrode diameter     | CONFIG  |
+| Wire minimum width     | CONFIG  |
+| Pad length             | CONFIG  |
+
+
+An example configuration file with four chips, designed to fit in a 6 inch wafer is provided in *config_mask.csv*. The first image of this file contains a chip that has the same parameters as Chip #4.
+
+|Parameter            |  Chip #1     |    Chip #2    |    Chip #3     |    Chip #4|
+|:--------------------|-------------:|--------------:|---------------:|----------:|
+|Electrode number     |      10      |        20     |         40     |         80|  
+|Electrode distance   |      10      |        10     |         10     |         10|  
+|Electrode diameter   |       5      |         5     |          5     |          5|   
+|Pad length           |    2000      |      2000     |       2000     |       2000|
+|Wire minimum width   |       5      |         5     |          5     |          5|   
+
+## cifFile class
+The most important class of the project is the cifFile. It handles all the *.cif* file readings, modifications, new file generation and storage. This standard includes:
+- Although there is no standard **header**, software such as CleWin usually incorporates information regarding the author of the mask. 
+- **Layer declaration**: Each layer is defined with a number. Furthermore, the comment placed in the same line is used by CleWin to select the color of the specific layer.
+- The content of the mask is composed of three major shapes: **Circles**, **Boxes** and **Wires**.
+- This file format uses modules which will be referred to as **elements** to avoid repetition. Elements are declared as belonging to a specific layer, with a name, an index and their contents. Then, this element can be instantiated on any desired position as many times as needed throughout the file.
+
+<div align="center">
+    <img src="https://github.com/HectorRguez/autoMask/blob/master/docs/cif_file_structure.png" width="400">
+</div>
 
 ## Project structure
 <pre>
@@ -66,58 +120,3 @@ Follow the following steps to contribute or make modifications to the program so
 ├── LICENSE
 └── README.md
 </pre>
-
-## Configuration parameters
-The parameters shown on this image fully represent the characteristics of each generated chip:
-
-<div align="center">
-    <img src="https://github.com/HectorRguez/autoMask/blob/master/docs/mask_parameters.png" width="600">
-</div>
-
-
-The values that define the general structure of the system are set up as constants in the *Chip.cs* file. The configurable parameters can be set up differently for each chip in the **Generate Mask window** [^2].
-
-[^2] the Pad Length parameter can be calculated automatically to maximize the covered area if it is set as 0. However, if some other value is introduced it will overwrite this calculation, up to the a maximum pad length of 2 mm.
-
-
-| Parameter              |   [um] |
-|------------------------|------: |
-| Maximum pad length     |   2000 |
-| Pad base               |   27000 |
-| Pad height             |   75000 |
-| Square base            |   29000 |
-| Square height A        |   39740 |
-| Square height B        |   42660 |
-| Wire minimum width     |      5 |
-| Wire corner length     |    100 |
-| Square width           |    100 |
-| Square length          |    500 |
-| Reference separation   |   17000 |
-| Electrode number       | CONFIG |
-| Electrode distance     | CONFIG |
-| Electrode diameter     | CONFIG |
-| Wire minimum width     | CONFIG |
-| Pad length             | CONFIG |
-
-
-An example configuration file with four chips, designed to fit in a 6 inch wafer is provided in *config_mask.csv*. The first image of this file contains a chip that has the same parameters as Chip #4.
-
-|Parameter            |  Chip #1     |    Chip #2    |    Chip #3     |    Chip #4|
-|:--------------------|-------------:|--------------:|---------------:|----------:|
-|Electrode number     |      10      |        20     |         40     |         80|  
-|Electrode distance   |      10      |        10     |         10     |         10|  
-|Electrode diameter   |       5      |         5     |          5     |          5|   
-|Pad length           |    2000      |      2000     |       2000     |       2000|
-|Wire minimum width   |       5      |         5     |          5     |          5|   
-
-## cifFile class
-The most important class of the project is the cifFile. It handles all the *.cif* file readings, modifications, new file generation and storage. This standard includes:
-- Although there is no standard **header**, software such as CleWin usually incorporates information regarding the author of the mask. 
-- **Layer declaration**: Each layer is defined with a number. Furthermore, the comment placed in the same line is used by CleWin to select the color of the specific layer.
-- The content of the mask is composed of three major shapes: **Circles**, **Boxes** and **Wires**.
-- This file format uses modules which will be referred to as **elements** to avoid repetition. Elements are declared as belonging to a specific layer, with a name, an index and their contents. Then, this element can be instantiated on any desired position as many times as needed throughout the file.
-
-<div align="center">
-    <img src="https://github.com/HectorRguez/autoMask/blob/master/docs/cif_file_structure.png" width="400">
-</div>
-
