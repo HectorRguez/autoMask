@@ -6,7 +6,7 @@ Optimizing MEA design involves a thorough design space exploration. The large nu
 Multiple designs, which will also be called *chips*, can fit in a single silicon wafer. However, this can dramatically increase the number of polygons that compose each mask. The already available mask design solutions, such as [CleWin 4.0]() are unable to handle this increased complexity, especially when visualizing the complete mask. This software cashes the corresponding vectorial image to visualize the masks without requiring large amounts of resources. The goal is to be able to provide a complete picture of the to be manufactured mask, which can be zoomed in or out and panned in a responsive manner.  
 
 <div align="center">
-    <img src="https://github.com/HectorRguez/autoMask/blob/master/docs/mask_example.png" width="400">
+    <img src="https://github.com/HectorRguez/autoMask/blob/master/docs/mask_example.jpg" width="300">
 </div>
 
 ## Table of contents
