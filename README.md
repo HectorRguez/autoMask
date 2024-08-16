@@ -95,6 +95,7 @@ Electrode distance      CONFIG
 Electrode diameter      CONFIG
 Wire minimum width      CONFIG
 Pad length              CONFIG
+------------------------------
 ```
 
 An example configuration file with four chips, designed to fit in a 6 inch wafer is provided in *config_mask.csv*. The first image of this file contains a chip that has the same parameters as Chip #4.
