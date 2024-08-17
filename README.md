@@ -24,11 +24,10 @@ Multiple designs, which will also be called *chips*, can fit in a single silicon
 3. Finally, **Configuration** opens the configuration window, that includes: 
     - Selection of the **paths** where the generated masks and a report containing the physical characteristics of every wire will be stored. 
     - **Deposition height and material**, which will be used to compute the estimated resistance.
-
+<div align="center">
     $$R[\Omega] = \frac{L[\text{m}]}{A[\text{m}^2]} \cdot \sigma[\frac{\text{S}}{m}]$$
-
-    - The wire width of the segment that is closer to the electrodes has a fixed width. However, the next two widths can be adjusted to minimize the resistance of the electrodes that are placed the furthest away from the interconnection pads. The function **Optimize wire width** generates multiple masks to determine the optimal solution.
-    - If **Equilibrate resistances** is enabled, the width furthest segment will be adjusted to ensure that the track of every electrode has the same resistance. This implies that the pads that are placed closer to the MEA will have thinner wiring.
+</div>
+    - The wire width of the segment that is closer to the electrodes has a fixed width. However, the next two widths can be adjusted to minimize the resistance of the electrodes that are placed the furthest away from the interconnection pads. Multiple masks are generated to determine the solution that minimizes the resistance of the longest connection. If **Equilibrate resistances** is enabled, the width of the other segments will be adjusted to ensure that the track of every electrode has the same resistance. Consequently, the pads that are placed closer to the MEA will have thinner wiring.
 4. Once a file has been read or generated, the right side of the screen will display relevant information.
     - The first tab contains the **contents** of the generated file in plain text.
     - The following tabs display the **wire characteristics** of every generated chip that conforms the mask design. It contains information regarding the **length** and **width** of each segment, as well as the total length and an estimation of the **resistance** using the aforementioned expression.
