@@ -29,8 +29,8 @@ namespace autoMask
                     while ((str = ((TextReader)streamReader).ReadLine()) != null)
                         stringList.Add(str);
                 }
-                for (int index = 0; index < stringList.Count; ++index)
-                    MaskWindow.Chips.Add(new Chip(stringList[index]));
+                for (int index = 0; index < stringList.Count; ++index) 
+                    MaskWindow.Chips.Add(new Chip(stringList[index])); 
                 this.isLoading = true;
                 for (int i = 0; i < MaskWindow.Chips.Count; ++i)
                 {
@@ -39,6 +39,7 @@ namespace autoMask
                 }
                 this.isLoading = false;
             }
+            catch (Exception ex) { }
         }
 
         private void Generate_File_Click(object sender, RoutedEventArgs e)

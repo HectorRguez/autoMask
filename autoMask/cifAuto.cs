@@ -132,79 +132,7 @@ namespace autoMask
       }
     }
 
-    // Add constant length wires to the element according to the chip properties
-    public static void Wires(Element el, Chip ma)
-    {
-      List<Circle> circleList = new List<Circle>();
-      int num1 = ma.N_PADS_SIDE / 2;
-      for (int index = 0; index < ma.N_PADS_SIDE; ++index)
-        circleList.Add(el.Circles[index * ma.N_PADS_SIDE]);
-      Vector2 vector2_1 = new Vector2(el.Boxes[num1 - 1].Center.X / 2f, el.Boxes[num1 - 1].Center.Y);
-      Vector2 vector2_2 = new Vector2(circleList[0].Center.X, el.Boxes[0].Center.Y);
-      double num2 = ((double) vector2_2.Y - (double) vector2_1.Y) / ((double) vector2_2.X - (double) vector2_1.X);
-      double num3 = -(double) vector2_1.Y / num2 + (double) vector2_1.X;
-      vector2_1 = new Vector2(el.Boxes[num1 - 1].Center.X / 2f, circleList[num1 - 1].Center.Y);
-      Vector2 center = circleList[0].Center;
-      double num4 = ((double) center.Y - (double) vector2_1.Y) / ((double) center.X - (double) vector2_1.X);
-      double num5 = (double) vector2_1.Y - num4 * (double) vector2_1.X;
-      for (int index = 0; index < num1; ++index)
-      {
-        Wire wire1 = new Wire();
-        wire1.Points.Add(el.Boxes[index].Center);
-        wire1.Widths.Add(ma.WIRE_MIN_WIDTH);
-        float x = (float) ((double) el.Boxes[index].Center.Y / num2 + num3);
-        if (index == num1 - 1)
-        {
-          wire1.Points.Add(new Vector2(x, el.Boxes[index].Center.Y));
-          wire1.Widths.Add(ma.WIRE_MIN_WIDTH);
-        }
-        else
-        {
-          wire1.Points.Add(new Vector2(x - (float) ma.WIRE_CORNER, el.Boxes[index].Center.Y));
-          wire1.Points.Add(new Vector2(x, el.Boxes[index].Center.Y - (float) ma.WIRE_CORNER));
-          wire1.Widths.Add(ma.WIRE_MIN_WIDTH);
-          wire1.Widths.Add(ma.WIRE_MIN_WIDTH);
-        }
-        float y = (float) (num4 * (double) x + num5);
-        if (index == 0)
-        {
-          wire1.Points.Add(new Vector2(x, y));
-          wire1.Widths.Add(ma.WIRE_MIN_WIDTH);
-        }
-        else
-        {
-          wire1.Points.Add(new Vector2(x, y + (float) ma.WIRE_CORNER));
-          wire1.Points.Add(new Vector2(x + (float) ma.WIRE_CORNER, y));
-          wire1.Widths.Add(ma.WIRE_MIN_WIDTH);
-          wire1.Widths.Add(ma.WIRE_MIN_WIDTH);
-        }
-        wire1.Points.Add(circleList[index].Center);
-        wire1.Widths.Add(ma.WIRE_MIN_WIDTH);
-        el.Wires.Add(wire1);
-        Wire wire2 = new Wire();
-        foreach (Vector2 point in wire1.Points)
-        {
-          wire2.Points.Add(new Vector2(point.X, -point.Y));
-          wire2.Widths.Add(ma.WIRE_MIN_WIDTH);
-        }
-        el.Wires.Add(wire2);
-        Wire wire3 = new Wire();
-        foreach (Vector2 point in wire1.Points)
-        {
-          wire3.Points.Add(new Vector2(-point.X, point.Y));
-          wire3.Widths.Add(ma.WIRE_MIN_WIDTH);
-        }
-        el.Wires.Add(wire3);
-        Wire wire4 = new Wire();
-        foreach (Vector2 point in wire1.Points)
-        {
-          wire4.Points.Add(new Vector2(-point.X, -point.Y));
-          wire4.Widths.Add(ma.WIRE_MIN_WIDTH);
-        }
-        el.Wires.Add(wire4);
-      }
-    }
-
+ 
     // Add squares on the corners of the element according to the chip elements
     public static void Squares(Element el, Chip ma)
     {
@@ -380,7 +308,7 @@ namespace autoMask
       int maxSegments = el.Wires[0].Lengths.Count;
       for(int indexWire = 1; indexWire < el.Wires.Count; indexWire++){
         if(el.Wires[indexWire].Lengths.Count > maxSegments){
-          maxSegments = el.Wires[indexWire].Lengths.Count:
+                    maxSegments = el.Wires[indexWire].Lengths.Count;
         }
       }
 
@@ -396,7 +324,7 @@ namespace autoMask
 
               // Wire segments
               int indexColumn = 1;
-              for(int indexParameter = 0; indexParameter < maxSegments){
+              for(int indexParameter = 0; indexParameter < maxSegments;){
                 if(indexParameter < el.Wires[indexWire].Lengths.Count){
                   // Fetch segment length and width
                   int length = el.Wires[indexWire].Lengths[indexParameter] / 1000;
@@ -406,11 +334,11 @@ namespace autoMask
                   dataRow[indexColumn+1] = width.ToString();
                   // Write columns for the wire report
                   fileContents += length.ToString() + ";" + width.ToString() + ";";
-                  indexParameter++;
                 }
                 else{
                   fileContents += ";;";
                 }
+                indexParameter++;
                 indexColumn += 2;
               }
 

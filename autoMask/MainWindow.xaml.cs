@@ -11,13 +11,13 @@ namespace autoMask
     {
         // Default configuraion
         // ==============================================================================
-        private string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        private static string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         public static string maskSavePath = baseDirectory + "\\auto_mask.cif";
         public static string maskOpenPath = baseDirectory;
         public static string wireReportPath = baseDirectory;
         public static string configMaskPath = baseDirectory + "\\config_mask.csv";
         public static bool viewChamber = false;
-        public static bool optWire = true;
+        //public static bool optWire = true;
         public static bool eqWire = true;
         public static int sputteringHeight = ConfigWindow.SPUTTERING_HEIGHT_NM;
         public static int sputteringMaterial = ConfigWindow.GOLD_CONDUCTANCE_S;
@@ -92,6 +92,7 @@ namespace autoMask
 
         public void Generate_Chips()
         {
+            file = new CifFile(this.Author, new List<int>() { 0 }, MainWindow.maskSavePath);
             List<Element> els = new List<Element>();
             for (int index = 0; index < MaskWindow.Chips.Count<Chip>(); ++index)
             {
@@ -100,10 +101,7 @@ namespace autoMask
                 el.Name = "Element " + index.ToString();
                 CifAuto.Electrodes(el, MaskWindow.Chips[index]);
                 CifAuto.Pads2sides(el, MaskWindow.Chips[index]);
-                if (MainWindow.optWire)
-                    CifAuto.VariableWires(el, MaskWindow.Chips[index], MainWindow.eqWire);
-                else
-                    CifAuto.Wires(el, MaskWindow.Chips[index]);
+                CifAuto.VariableWires(el, MaskWindow.Chips[index], MainWindow.eqWire);
                 CifAuto.Squares(el, MaskWindow.Chips[index]);
                 CifAuto.GroundReference(el, MaskWindow.Chips[index]);
                 els.Add(el);

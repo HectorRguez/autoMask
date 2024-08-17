@@ -43,11 +43,6 @@
         </DockPanel>
         <Separator/>
         <DockPanel>
-            <Label VerticalAlignment="Center" DockPanel.Dock="Left">Optimize Wire Width</Label>
-            <CheckBox Click="Value_Changed" x:Name="optWires" DockPanel.Dock="Right" HorizontalAlignment="Right"
-                Margin="8,5" VerticalAlignment="Center"/>
-        </DockPanel>
-        <DockPanel>
             <Label VerticalAlignment="Center" DockPanel.Dock="Left">
                 Equillibrate resistances
             </Label>

@@ -17,7 +17,7 @@ namespace autoMask
             this.InitializeComponent();
             this.isLoading = true;
             this.miChambView.IsChecked = new bool?(MainWindow.viewChamber);
-            this.optWires.IsChecked = new bool?(MainWindow.optWire);
+            //this.optWires.IsChecked = new bool?(MainWindow.optWire);
             this.eqWires.IsChecked = new bool?(MainWindow.eqWire);
             this.savePath.Text = MainWindow.maskSavePath;
             this.reportPath.Text = MainWindow.wireReportPath;
@@ -56,7 +56,7 @@ namespace autoMask
             MainWindow.viewChamber = this.miChambView.IsChecked.GetValueOrDefault();
             MainWindow.maskSavePath = this.savePath.Text;
             MainWindow.wireReportPath = this.reportPath.Text;
-            MainWindow.optWire = this.optWires.IsChecked.GetValueOrDefault();
+            //MainWindow.optWire = this.optWires.IsChecked.GetValueOrDefault();
             MainWindow.eqWire = this.eqWires.IsChecked.GetValueOrDefault();
             MainWindow.sputteringHeight = int.Parse(this.HeightContainer.Text);
             MainWindow.sputteringMaterial = int.Parse(this.ConducContainer.Text) * 1000000;
