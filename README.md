@@ -1,9 +1,9 @@
 # autoMask
 This repository provides an automatic tool to design photolithography masks in a *.cif* format for the fabrication of Microelectrode Arrays (MEAs). Furthermore, it provides a complete framework for *.cif* file visualization and generation.
 
-Optimizing MEA design involves a thorough design space exploration. The large number of parameters requires multiple iterations of the designs and fabrication processes. The goal of this project is to facilitate this process by **automating the design step**. MEAs are repetitive and, usually, symmetrical. Thus, providing designs after selecting a few distances results in excellent time savings.
+Optimizing MEA design involves a thorough design space exploration. The large number of parameters requires multiple iterations of the designs and fabrication processes. The goal of this project is to facilitate this process by **automating the design step**. MEAs are repetitive and, usually, symmetrical. Thus, providing designs based on a limited number of dimensions results is feasible, consequently achieving large time savings.
 
-Multiple designs, which will also be called *chips*, can fit in a single silicon wafer. However, this can dramatically increase the number of polygons that compose each mask. The already available mask design solutions, such as [CleWin 4.0]() are unable to handle this increased complexity, especially when visualizing the complete mask. This software cashes the corresponding vectorial image to visualize the masks without requiring large amounts of resources. The goal is to be able to provide a complete picture of the to be manufactured mask, which can be zoomed in or out and panned in a responsive manner.  
+Multiple designs, which will also be called *chips*, can fit in a single silicon wafer. However, this can dramatically increase the number of polygons that compose each mask. The already available mask design solutions are unable to handle this increased complexity, especially when visualizing the complete design. This project aims to provide a complete picture of the to be manufactured mask, which can be zoomed in or out and panned in a responsive manner.
 
 <div align="center">
     <img src="https://github.com/HectorRguez/autoMask/blob/master/docs/mask_example.jpg" width="300">
@@ -11,8 +11,8 @@ Multiple designs, which will also be called *chips*, can fit in a single silicon
 
 ## Table of contents
 - [Getting started](#getting-started)
-- [How to contribute](#how-to-contribute)
 - [Configuration parameters](#configuration-parameters)
+- [How to contribute](#how-to-contribute)
 - [cifFile class](#cif-file-class)
 - [Project structure](#project-structure)
 
