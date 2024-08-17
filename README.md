@@ -19,8 +19,8 @@ Multiple designs, which will also be called *chips*, can fit in a single silicon
 ## Getting started
 1. Download the latest release on the release section.
 2. **Execute** the *.exe* file to run the program. 
-1. The button **Read File** can be used to visualize photolithography masks. A *.cif* mask example is contained in the *docs* folder.
-2. The button **Generate File** opens a pop-up window that can be used to indicate the configurable mask parameters. The **+** and **-** can be used to introduce new masks or eliminate existing ones. Finally, before generating a new mask with **Generate**, the configuration can be stored in a *.csv* file for future executions by pressing **Save masks**. An example mask configuration is included in the release, inside the file *config_mask.csv*. 
+1. The button **Read File** can be used to visualize photolithography masks. A *.cif* mask example is contained same directory as the executable.
+2. The button **Generate File** opens a pop-up window that can be used to indicate the configurable mask parameters. The **+** and **-** can be used to introduce new masks or eliminate existing ones. Finally, before generating a new mask with **Generate**, the configuration can be stored in a *.csv* file for future executions by pressing **Save masks**. An example mask configuration is included in the release, *config_mask.csv*, and it will be loaded automatically. 
 3. Finally, **Configuration** opens the configuration window, that includes: 
     - Selection of the **paths** where the generated masks and a report containing the physical characteristics of every wire will be stored. 
     - **Deposition height and material**, which will be used to compute the estimated resistance.
