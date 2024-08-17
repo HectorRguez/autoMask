@@ -23,10 +23,10 @@ Multiple designs, which will also be called *chips*, can fit in a single silicon
 2. The button **Generate File** opens a pop-up window that can be used to indicate the configurable mask parameters. The **+** and **-** can be used to introduce new masks or eliminate existing ones. Finally, before generating a new mask with **Generate**, the configuration can be stored in a *.csv* file for future executions by pressing **Save masks**. An example mask configuration is included in the release, *config_mask.csv*, and it will be loaded automatically. 
 3. Finally, **Configuration** opens the configuration window, that includes: 
     - Selection of the **paths** where the generated masks and a report containing the physical characteristics of every wire will be stored. 
-    - **Deposition height and material**, which will be used to compute the estimated resistance.
-<div align="center">
-    $$R[\Omega] = \frac{L[\text{m}]}{A[\text{m}^2]} \cdot \sigma[\frac{\text{S}}{m}]$$
-</div>
+    - **Deposition height and material**, which will be used to compute the estimated resistance. [^1]
+
+    [^1]: $$R[\Omega] = \frac{L[\text{m}]}{A[\text{m}^2]} \cdot \sigma[\frac{\text{S}}{m}]$$
+
     - The wire width of the segment that is closer to the electrodes has a fixed width. However, the next two widths can be adjusted to minimize the resistance of the electrodes that are placed the furthest away from the interconnection pads. Multiple masks are generated to determine the solution that minimizes the resistance of the longest connection. If **Equilibrate resistances** is enabled, the width of the other segments will be adjusted to ensure that the track of every electrode has the same resistance. Consequently, the pads that are placed closer to the MEA will have thinner wiring.
 4. Once a file has been read or generated, the right side of the screen will display relevant information.
     - The first tab contains the **contents** of the generated file in plain text.
@@ -37,9 +37,9 @@ Follow the following steps to contribute or make modifications to the program so
 1. Download the **IDE**. This project has been created in [Visual Studio Community 2022](https://visualstudio.microsoft.com/). It uses [Windows Presentation Foundation .NET Version 8.0](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/overview/?view=netdesktop-8.0)
 2. Clone the repository: `git clone https://github.com/HectorRguez/autoMask/`
 3. Open the project's solution with the recommended IDE. The solution file has the  *.sln* extension.
-4. Compile and run the project. [^1]
+4. Compile and run the project. [^2]
 
-[^1]: To load the example mask configuration, the *mask_config.csv* file should be copied inside the compiled project directory, which should be inside the *bin/Debug* folder.
+[^2]: To load the example mask configuration, the *mask_config.csv* file should be copied inside the compiled project directory, which should be inside the *bin/Debug* folder.
 
 
 ## Configuration parameters
@@ -50,9 +50,9 @@ The parameters shown on this image fully represent the characteristics of each g
 </div>
 
 
-The values that define the general structure of the system are set up as constants in the *Chip.cs* file. The configurable parameters can be set up differently for each chip in the **Generate Mask window** [^2].
+The values that define the general structure of the system are set up as constants in the *Chip.cs* file. The configurable parameters can be set up differently for each chip in the **Generate Mask window** [^3].
 
-[^2]: the Pad Length parameter can be calculated automatically to maximize the covered area if it is set as 0. However, if some other value is introduced it will overwrite this calculation, up to the a maximum pad length of 2 mm.
+[^3]: the Pad Length parameter can be calculated automatically to maximize the covered area if it is set as 0. However, if some other value is introduced it will overwrite this calculation, up to the a maximum pad length of 2 mm.
 
 
 | Parameter              |   [um]  |
